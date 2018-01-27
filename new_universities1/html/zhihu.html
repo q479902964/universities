@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>高校舆情知乎端</title>
+    <link href="../css/zhihu.css" rel="stylesheet">
+    <script src="../js/jquery-2.1.3.min.js"></script>
+    <script src="../js/echarts.min.js"></script>
+    <script src="../js/echarts-wordcloud.min.js"></script>
+    <script type="test/x-template" id="zhihu_news_template">
+        <li>
+            <div class="news_box">
+                <div class="new_title"><span>标题:</span><span>{{news_title}}</span></div>
+                <div class="new_title"><span>来源:</span><span>{{news_author}}</span></div>
+                <span class="t1">内容:</span>
+                <div class="t2"><span class="news_content">{{news_content}}</span></div>
+                <div class="num_box">
+                    <div>
+                        <span>转发量:</span><span>{{forward_num}}</span>
+                    </div>
+                    <div>
+                        <span>评论量:</span><span>{{comment_num}}</span>
+                    </div>
+                    <div>
+                        <span>点赞量:</span><span>{{thumbsup_num}}</span>
+                    </div>
+                </div>
+            </div>
+        </li>
+    </script>
+    <script src="../js/zhihu.js"></script>
+</head>
+<body>
+    <div id="header">
+        <div id="header-box">
+            <div class="title">
+                <img src="../img/logo.png">
+                <span>高校舆情</span>
+            </div>
+            <div class="search-form" >
+                <form class="form" action="../html/search.html">
+                    <input type="text" placeholder="输入你要查找的事件和学校" id="search-text" name="key">
+                    <input type="submit" id="search-btn" value="" >
+                </form>
+            </div>
+        </div>
+    </div>
+    <div id="wrapper">
+        <div class="event_message">
+            <div class="bg_box">
+                <div class="message_box">
+                    <div class="event_title">
+                        <h1 id="event_topic"></h1>
+                        <h1 id="event_date"></h1>
+                    </div>
+                    <p id="introduce">
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="tab_box">
+            <a href="../html/news.html">新闻端</a>
+            <a href="../html/weibo.html">微博端</a>
+            <a href="../html/zhihu.html">知&nbsp;&nbsp;乎</a>
+        </div>
+        <div class="weibo_news">
+            <div class="rank_title">
+                <div class="title_name">
+                    <span>知乎问答</span>
+                </div>
+            </div>
+            <ul>
+                <!--<li>-->
+                    <!--<div class="news_box">-->
+                        <!--<div class="new_title"><span>标题:</span><span>陈世峰当天和刘鑫分手后，自己回家，买了瓶酒</span></div>-->
+                        <!--<div class="new_title"><span>来源:</span><span>王志安</span></div>-->
+                        <!--<span class="t1">内容:</span>-->
+                        <!--<div class="t2"><span class="news_content">陈世峰当天和刘鑫分手后，自己回家，买了瓶酒喝了，之后带着一套衣服出了门。日本地铁可以在自己居住地和上班地点之间优惠半价，相当于实名制，陈世峰特地走了两站地买了一张一次票去了江歌和刘鑫居住的公寓。十一点时陈世峰最后一次和刘鑫通电话，12点16分杀害江歌，杀人后陈世峰换了衣服回家。五天后陈世峰被拘留，罪名是威胁刘鑫，十余天后才被以杀人罪逮捕，但警方没找到凶器。以上信息都是日本媒体案发后报道的，我们采访前早就了解到。关心案情的，请尽量了解全貌，大呼反转的，我觉得你们将来有可能不得好死。</span></div>-->
+                        <!--<div class="num_box">-->
+                            <!--<div>-->
+                                <!--<span>转发量:</span><span>8678</span></span>-->
+                            <!--</div>-->
+                            <!--<div>-->
+                                <!--<span>转发量:</span><span>8678</span></span>-->
+                            <!--</div>-->
+                            <!--<div>-->
+                                <!--<span>转发量:</span><span>8678</span></span>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</li>-->
+                <!--<li>-->
+                    <!--<div class="news_box">-->
+                        <!--<div class="new_title"><span>标题:</span><span>陈世峰当天和刘鑫分手后，自己回家，买了瓶酒</span></div>-->
+                        <!--<div class="new_title"><span>来源:</span><span>王志安</span></div>-->
+                        <!--<span class="t1">内容:</span>-->
+                        <!--<div class="t2"><span class="news_content">陈世峰当天和刘鑫分手后，自己回家，买了瓶酒喝了，之后带着一套衣服出了门。日本地铁可以在自己居住地和上班地点之间优惠半价，相当于实名制，陈世峰特地走了两站地买了一张一次票去了江歌和刘鑫居住的公寓。十一点时陈世峰最后一次和刘鑫通电话，12点16分杀害江歌，杀人后陈世峰换了衣服回家。五天后陈世峰被拘留，罪名是威胁刘鑫，十余天后才被以杀人罪逮捕，但警方没找到凶器。以上信息都是日本媒体案发后报道的，我们采访前早就了解到。关心案情的，请尽量了解全貌，大呼反转的，我觉得你们将来有可能不得好死。</span></div>-->
+                        <!--<div class="num_box">-->
+                            <!--<div>-->
+                                <!--<span>转发量:</span><span>8678</span></span>-->
+                            <!--</div>-->
+                            <!--<div>-->
+                                <!--<span>转发量:</span><span>8678</span></span>-->
+                            <!--</div>-->
+                            <!--<div>-->
+                                <!--<span>转发量:</span><span>8678</span></span>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</li>-->
+                <!--<li>-->
+                    <!--<div class="news_box">-->
+                        <!--<div class="new_title"><span>标题:</span><span>陈世峰当天和刘鑫分手后，自己回家，买了瓶酒</span></div>-->
+                        <!--<div class="new_title"><span>来源:</span><span>王志安</span></div>-->
+                        <!--<span class="t1">内容:</span>-->
+                        <!--<div class="t2"><span class="news_content">陈世峰当天和刘鑫分手后，自己回家，买了瓶酒喝了，之后带着一套衣服出了门。日本地铁可以在自己居住地和上班地点之间优惠半价，相当于实名制，陈世峰特地走了两站地买了一张一次票去了江歌和刘鑫居住的公寓。十一点时陈世峰最后一次和刘鑫通电话，12点16分杀害江歌，杀人后陈世峰换了衣服回家。五天后陈世峰被拘留，罪名是威胁刘鑫，十余天后才被以杀人罪逮捕，但警方没找到凶器。以上信息都是日本媒体案发后报道的，我们采访前早就了解到。关心案情的，请尽量了解全貌，大呼反转的，我觉得你们将来有可能不得好死。</span></div>-->
+                        <!--<div class="num_box">-->
+                            <!--<div>-->
+                                <!--<span>转发量:</span><span>8678</span></span>-->
+                            <!--</div>-->
+                            <!--<div>-->
+                                <!--<span>转发量:</span><span>8678</span></span>-->
+                            <!--</div>-->
+                            <!--<div>-->
+                                <!--<span>转发量:</span><span>8678</span></span>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</li>-->
+                <!--<li>-->
+                    <!--<div class="news_box">-->
+                        <!--<div class="new_title"><span>标题:</span><span>陈世峰当天和刘鑫分手后，自己回家，买了瓶酒</span></div>-->
+                        <!--<div class="new_title"><span>来源:</span><span>王志安</span></div>-->
+                        <!--<span class="t1">内容:</span>-->
+                        <!--<div class="t2"><span class="news_content">陈世峰当天和刘鑫分手后，自己回家，买了瓶酒喝了，之后带着一套衣服出了门。日本地铁可以在自己居住地和上班地点之间优惠半价，相当于实名制，陈世峰特地走了两站地买了一张一次票去了江歌和刘鑫居住的公寓。十一点时陈世峰最后一次和刘鑫通电话，12点16分杀害江歌，杀人后陈世峰换了衣服回家。五天后陈世峰被拘留，罪名是威胁刘鑫，十余天后才被以杀人罪逮捕，但警方没找到凶器。以上信息都是日本媒体案发后报道的，我们采访前早就了解到。关心案情的，请尽量了解全貌，大呼反转的，我觉得你们将来有可能不得好死。</span></div>-->
+                        <!--<div class="num_box">-->
+                            <!--<div>-->
+                                <!--<span>转发量:</span><span>8678</span></span>-->
+                            <!--</div>-->
+                            <!--<div>-->
+                                <!--<span>转发量:</span><span>8678</span></span>-->
+                            <!--</div>-->
+                            <!--<div>-->
+                                <!--<span>转发量:</span><span>8678</span></span>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</li>-->
+            </ul>
+        </div>
+        <div class="user_box">
+            <div class="opinion">
+                <div class="rank_title">
+                    <div class="title_name">
+                        <span>意见领袖表</span>
+                    </div>
+                </div>
+                <ul class="user_ul">
+                    <!--<li>-->
+                        <!--<span class="order_num">1</span>-->
+                        <!--<span class="event">BeN-Kwan</span>-->
+                    <!--</li>-->
+                    <!--<li>-->
+                        <!--<span class="order_num">2</span>-->
+                        <!--<span class="event">村口名人</span>-->
+                    <!--</li>-->
+                    <!--<li>-->
+                        <!--<span class="order_num">3</span>-->
+                        <!--<span class="event">余文乐</span>-->
+                    <!--</li>-->
+                    <!--<li>-->
+                        <!--<span class="order_num">4</span>-->
+                        <!--<span class="event">twice</span>-->
+                    <!--</li>-->
+                    <!--<li>-->
+                        <!--<span class="order_num">5</span>-->
+                        <!--<span class="event">BeN-Kwan</span>-->
+                    <!--</li>-->
+                    <!--<li>-->
+                        <!--<span class="order_num">6</span>-->
+                        <!--<span class="event">村口名人</span>-->
+                    <!--</li>-->
+                    <!--<li>-->
+                        <!--<span class="order_num">7</span>-->
+                        <!--<span class="event">余文乐</span>-->
+                    <!--</li>-->
+                    <!--<li>-->
+                        <!--<span class="order_num">8</span>-->
+                        <!--<span class="event">twice</span>-->
+                    <!--</li>-->
+                </ul>
+            </div>
+            <div class="viewpoint">
+                <div class="rank_title">
+                    <div class="title_name">
+                        <span>观点挖掘</span>
+                    </div>
+                </div>
+                <ul class="user_ul">
+                    <!--<li>-->
+                        <!--<span class="user_name">BeN-Kwan</span>-->
+                        <!--<ul class="comment_word">-->
+                        <!--</ul>-->
+                    <!--</li>-->
+                    <!--<li>-->
+                        <!--<span class="user_name">村口名人</span>-->
+                        <!--<ul class="comment_word">-->
+                            <!--&lt;!&ndash;<li>评论词</li>&ndash;&gt;-->
+                            <!--&lt;!&ndash;<li>评论词</li>&ndash;&gt;-->
+                            <!--&lt;!&ndash;<li>评论词</li>&ndash;&gt;-->
+                        <!--</ul>-->
+                    <!--</li>-->
+                    <!--<li>-->
+                        <!--<span class="user_name">余文乐</span>-->
+                        <!--<ul class="comment_word">-->
+                            <!--&lt;!&ndash;<li>评论词</li>&ndash;&gt;-->
+                            <!--&lt;!&ndash;<li>评论词</li>&ndash;&gt;-->
+                            <!--&lt;!&ndash;<li>评论词</li>&ndash;&gt;-->
+                        <!--</ul>-->
+                    <!--</li>-->
+                    <!--<li>-->
+                        <!--<span class="user_name">twice</span>-->
+                        <!--<ul class="comment_word">-->
+                            <!--&lt;!&ndash;<li>评论词</li>&ndash;&gt;-->
+                            <!--&lt;!&ndash;<li>评论词</li>&ndash;&gt;-->
+                            <!--&lt;!&ndash;<li>评论词</li>&ndash;&gt;-->
+                        <!--</ul>-->
+                    <!--</li>-->
+                    <!--<li>-->
+                        <!--<span class="user_name">BeN-Kwan</span>-->
+                        <!--<ul class="comment_word">-->
+                            <!--&lt;!&ndash;<li>评论词</li>&ndash;&gt;-->
+                            <!--&lt;!&ndash;<li>评论词</li>&ndash;&gt;-->
+                            <!--&lt;!&ndash;<li>评论词</li>&ndash;&gt;-->
+                        <!--</ul>-->
+                    <!--</li>-->
+                    <!--<li>-->
+                        <!--<span class="user_name">村口名人</span>-->
+                        <!--<ul class="comment_word">-->
+                            <!--&lt;!&ndash;<li>评论词</li>&ndash;&gt;-->
+                            <!--&lt;!&ndash;<li>评论词</li>&ndash;&gt;-->
+                            <!--&lt;!&ndash;<li>评论词</li>&ndash;&gt;-->
+                        <!--</ul>-->
+                    <!--</li>-->
+                    <!--<li>-->
+                        <!--<span class="user_name">余文乐</span>-->
+                        <!--<ul class="comment_word">-->
+                            <!--&lt;!&ndash;<li>评论词</li>&ndash;&gt;-->
+                            <!--&lt;!&ndash;<li>评论词</li>&ndash;&gt;-->
+                            <!--&lt;!&ndash;<li>评论词</li>&ndash;&gt;-->
+                        <!--</ul>-->
+                    <!--</li>-->
+                    <!--<li>-->
+                        <!--<span class="user_name">twice</span>-->
+                        <!--<ul class="comment_word">-->
+                            <!--&lt;!&ndash;<li>评论词</li>&ndash;&gt;-->
+                            <!--&lt;!&ndash;<li>评论词</li>&ndash;&gt;-->
+                            <!--&lt;!&ndash;<li>评论词</li>&ndash;&gt;-->
+                        <!--</ul>-->
+                    <!--</li>-->
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div style="clear: both"></div>
+    <div id="footer">
+        <p>中国广州市番禺区小谷围广州大学城510006（南校区）</p>
+        <p>Copyright©2017 数据挖掘</p>
+    </div>
+</body>
+</html>

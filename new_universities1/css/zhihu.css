@@ -1,0 +1,353 @@
+*{
+    margin: 0;
+    padding:0;
+}
+li{
+    list-style: none;
+}
+body{
+    font-family:SourceHanSansCN-Medium;
+    color: #585858;
+    background: #f7f7f7;
+}
+a{
+    text-decoration: none;
+}
+
+
+/*头部标题栏*/
+/*logo部分*/
+#header{
+    width: 100%;
+    height: 60px;
+    background: #fff;
+    box-shadow: 0 4px 4px 0 rgba(224,224,224,0.50);
+}
+#header-box{
+    width: 1024px;
+    height: 100%;
+    margin: 0 auto;
+}
+#header .title{
+    float: left;
+    padding-top: 20px;
+    padding-left: 20px;
+    cursor: pointer;
+}
+.title span{
+    margin-bottom: 10px;
+    padding-left: 15px;
+    font-style: normal;
+    font-size: 20px;
+    color: #5CC6D0;
+    font-weight: bold;
+    position: relative;
+    bottom: 3px;
+}
+/*logo部分*/
+/*搜索栏部分*/
+#header .search-form{
+    float: right;
+    padding-top: 20px;
+}
+.search-form #search-text{
+    background: transparent;
+    color: #585858;
+    font-size: 14px;
+    text-align:justify;
+    padding-right: 80px;
+    padding-left: 20px;
+    outline:none;
+    border: 0;
+    border-left: 1px solid #979797;
+    border-right: 1px solid #979797;
+}
+.search-form #search-btn{
+    background: url(../img/Search.png) no-repeat;
+    vertical-align: middle;
+    border: 0;
+    margin-left: 10px;
+    padding-right: 30px;
+    outline:none;
+    cursor: pointer;
+}
+/*搜索栏部分*/
+/*头部标题栏*/
+
+/*主体部分*/
+/*事件信息*/
+#wrapper{
+    width: 1024px;
+    margin: 20px auto;
+}
+.event_message{
+    width: 100%;
+    min-height: 470px;
+    background:#fff;
+    background-size:100% 100%;
+    background-repeat: no-repeat;
+}
+.bg_box{
+    width: 100%;
+    min-height: 470px;
+    background: rgba(38,75,78,0.50);
+}
+.message_box{
+    width: 825px;
+    padding-top: 200px;
+    padding-left: 100px;
+}
+.event_title{
+    width: 100%;
+    height: 100%;
+    border-left:4px solid #5CC6D0 ;
+}
+.event_title h1{
+    padding-left: 26px;
+}
+.event_title h1:first-child{
+    font-style: normal;
+    font-size: 30px;
+    color: #FFFFFF;
+}
+.event_title h1:nth-of-type(2){
+    font-style: normal;
+    padding-top: 18px;
+    font-size: 18px;
+    color: #FFFFFF;
+}
+.message_box p{
+    text-indent: 2em;
+    margin-top: 18px;
+    padding-bottom: 60px;
+    font-size: 14px;
+    color: #FFFFFF;
+    line-height: 18px;
+}
+/*事件信息*/
+/*端口*/
+.tab_box{
+    width: 100%;
+    text-align: center;
+    background: transparent;
+    margin-top: 40px;
+}
+.tab_box a{
+    font-size: 20px;
+    color: #585858;
+    letter-spacing: 2px;
+    padding-bottom: 10px;
+}
+.tab_box a:first-of-type{
+    margin-right: 200px;
+}
+.tab_box a:nth-of-type(3){
+    margin-left: 200px;
+    border-bottom: 5px solid #5CC6D0;
+}
+/*端口*/
+/*微博新闻*/
+.weibo_news{
+    margin-top: 40px;
+    box-shadow: 0 4px 4px 0 rgba(224,224,224,0.50);
+}
+.weibo_news ul{
+    max-height: 716px;
+    overflow: auto;
+}
+/*滚轮条样式*/
+.weibo_news ul::-webkit-scrollbar-track-piece{
+    background-color:transparent;/*滚动条的背景颜色*/
+    -webkit-border-radius:6px;/*滚动条的圆角宽度*/
+}
+.weibo_news ul::-webkit-scrollbar{
+    width:12px;/*滚动条的宽度*/
+    height:80px;/*滚动条的高度*/
+}
+.weibo_news ul::-webkit-scrollbar-thumb:vertical{/*垂直滚动条的样式*/
+
+    background-color:#999;
+    -webkit-border-radius:4px;
+    outline:2px solid #fff;
+    outline-offset:-2px;
+}
+/*滚轮条样式*/
+.weibo_news ul li{
+    width: 1022px;
+    min-height: 177px;
+    border: 1px solid #E6E6E6;
+    background: #fff;
+    position: relative;
+}
+.rank_title{
+    width: 100%;
+    height: 40px;
+    background: #5CC6D0;
+}
+.rank_title .title_name{
+    line-height: 40px;
+    text-align: center;
+}
+.title_name img{
+    position: relative;
+    top:2px;
+}
+.title_name span{
+    padding-left: 3px;
+    font-size: 16px;
+    color: #fff;
+}
+.weibo_news ul li:nth-child(even){
+    background: #F5F5F5;
+}
+.weibo_news ul li:nth-child(odd){
+    background: #ffffff;
+}
+.new_title{
+    width: 984px;
+    margin-left: 20px;
+}
+.new_title:first-of-type{
+    margin-top: 10px;
+}
+.new_title span:first-of-type{
+    font-size: 12px;
+    color: #858585;
+}
+.new_title span:nth-of-type(2){
+    padding-left: 10px;
+    font-size: 12px;
+    color: #585858;
+}
+.t1{
+    float: left;
+    padding-top: 5px;
+    padding-left: 20px;
+    font-size: 12px;
+    color: #858585;
+}
+.t2{
+    width: 943px;
+    display: inline-block;
+    margin-left: 10px;
+    margin-top: 5px;
+    margin-bottom: 53px;
+}
+.news_content{
+    width: 943px;
+    display: inline-block;
+    font-size: 12px;
+    color: #585858;
+}
+.num_box{
+    width: 480px;
+    float: right;
+    position: absolute;
+    right: 20px;
+    bottom: 20px;
+}
+.num_box div{
+    width: 140px;
+    display: inline-block;
+    padding-left: 10px;
+    border-left: 3px solid #5CC6D0;
+}
+.num_box div span:first-of-type{
+    font-size: 14px;
+    color: #858585;
+}
+.num_box div span:nth-of-type(2){
+    font-size: 14px;
+    color: #585858;
+    margin-left: 10px;
+}
+/*微博新闻*/
+
+/*意见领袖表和观点挖掘*/
+.user_box{
+    margin-top: 20px;
+    width: 1024px;
+    box-shadow: 0 4px 4px 0 rgba(224,224,224,0.50);
+}
+.opinion{
+    width: 502px;
+    float: left;
+    background: #fff;
+}
+.order_num{
+    width: 88px;
+    height: 50px;
+    text-align: center;
+}
+.opinion ul li{
+    width: 500px;
+    height: 50px;
+    border: 1px solid #E6E6E6;
+    clear: both;
+}
+.opinion ul li:nth-child(odd){
+    background: #F5F5F5;
+}
+.opinion ul li:nth-child(even){
+    background: #ffffff;
+}
+.opinion ul li span{
+    display: inline-block;
+    line-height: 50px;
+    overflow: hidden;
+    font-size: 14px;
+    color: #858585;
+}
+.viewpoint{
+    width: 502px;
+    float: right;
+    background: #fff;
+}
+.viewpoint>ul>li{
+    width: 500px;
+    min-height: 50px;
+    border: 1px solid #E6E6E6;
+    clear: both;
+    /*position: relative;*/
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+.user_name{
+    display: inline-block;
+    width:150px;
+    text-align: center;
+    /*margin-top: 15px;*/
+    font-size: 14px;
+    color: #858585;
+    border-right: 3px solid  #5CC6D0;
+}
+.comment_word{
+    overflow: hidden;
+    display: inline-block;
+    width: 330px;
+    /*position: absolute;*/
+    /*top:15px;*/
+}
+.comment_word li{
+    display: inline-block;
+    padding-left: 20px;
+    border: 0;
+    font-size: 14px;
+    color: #858585;
+}
+/*意见领袖表和观点挖掘*/
+
+/*主体部分*/
+
+/*底部*/
+#footer{
+    margin-top: 81px;
+    margin-bottom: 43px;
+}
+#footer p{
+    text-align: center;
+    font-size: 10px;
+    color:#858585;
+}
+/*底部*/

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>高校舆情首页</title>
+    <link href="../css/homepage.css" rel="stylesheet">
+    <script src="../js/jquery-2.1.3.min.js"></script>
+    <script type="test/x-template" id="school_data_template">
+        <a href="../html/school.html?sid={{school_id}}">
+            <li>
+                <span class="order_num">{{order_num}}</span>
+                <img  class="school_icon" src="{{school_icon}}"></img>
+                <span class="school_name">{{school_name}}</span>
+                <div class="num_box">
+                    <span class="heat_index">{{heat_index}}</span>
+                    <div class="index_box">
+                        <span class="index_movement">{{index_movement}}</span>
+                        <img  class="trend_icon" src="{{trend_icon}}">
+                    </div>
+                </div>
+            </li>
+        </a>
+    </script>
+    <script type="test/x-template" id="event_template">
+        <a href="../html/news.html?eid={{id}}&pid=1">
+            <li>
+                <span class="order_num">{{order_num}}</span>
+                <span class="event">{{event}}</span>
+                <img  class="right_arrow" src="../img/right%20Shape.png">
+            </li>
+        </a>
+    </script>
+    <script src="../js/homepage.js"></script>
+</head>
+<body>
+    <div id="header">
+        <div id="header-box">
+            <div class="title">
+                <img src="../img/logo.png">
+                <span>高校舆情</span>
+            </div>
+            <div class="search-form" >
+                <form class="form" action="../html/search.html">
+                    <input type="text" placeholder="输入你要查找的事件和学校" id="search-text" name="key">
+                    <input type="submit" id="search-btn" value="" >
+                </form>
+            </div>
+        </div>
+    </div>
+    <div id="wrapper">
+        <div class="school_rank">
+            <div class="rank_title">
+                <div class="title_name">
+                    <img src="../img/list.png">
+                    <span>学校排行榜</span>
+                </div>
+            </div>
+            <div class="rank_info">
+                <span>名称</span>
+                <span>热度指数</span>
+                <span>指数变化</span>
+            </div>
+            <ul>
+            </ul>
+        </div>
+        <div class="hot_events">
+        <div class="rank_title">
+            <div class="title_name">
+                <img src="../img/list.png">
+                <span>近期事件列表</span>
+            </div>
+        </div>
+        <div class="event_type">
+            <div>
+                <div class="obj_show">
+                    <span>事件类型过滤</span>
+                    <img src="../img/blackTriangle.png">
+                </div>
+                <div class="event_list" id="list" style="display: none">
+                    <ul>
+                        <!--<li><div><span>学生类事件</span></div></li>-->
+                        <!--<li><div><span>教师类</span></div></li>-->
+                        <!--<li><div><span>教育主管类部门</span></div></li>-->
+                        <!--<li><div><span>学校类</span></div></li>-->
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    <div id="footer">
+        <p>中国广州市番禺区小谷围广州大学城510006（南校区）</p>
+        <p>Copyright©2017 数据挖掘</p>
+    </div>
+</body>
+</html>

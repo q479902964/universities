@@ -1,0 +1,289 @@
+*{
+    margin: 0;
+    padding:0;
+}
+li{
+    list-style: none;
+}
+body{
+    font-family:SourceHanSansCN-Medium;
+    color: #585858;
+    background: #f7f7f7;
+}
+a{
+    text-decoration: none;
+}
+
+
+/*头部标题栏*/
+/*logo部分*/
+#header{
+    width: 100%;
+    height: 60px;
+    background: #fff;
+    box-shadow: 0 4px 4px 0 rgba(224,224,224,0.50);
+}
+#header-box{
+    width: 1024px;
+    height: 100%;
+    margin: 0 auto;
+}
+#header .title{
+    float: left;
+    padding-top: 20px;
+    padding-left: 20px;
+    cursor: pointer;
+}
+.title span{
+    margin-bottom: 10px;
+    padding-left: 15px;
+    font-style: normal;
+    font-size: 20px;
+    color: #5CC6D0;
+    font-weight: bold;
+    position: relative;
+    bottom: 3px;
+}
+/*logo部分*/
+/*搜索栏部分*/
+#header .search-form{
+    float: right;
+    padding-top: 20px;
+}
+.search-form #search-text{
+    background: transparent;
+    color: #585858;
+    font-size: 14px;
+    text-align:justify;
+    padding-right: 80px;
+    padding-left: 20px;
+    outline:none;
+    border: 0;
+    border-left: 1px solid #979797;
+    border-right: 1px solid #979797;
+}
+.search-form #search-btn{
+    background: url(../img/Search.png) no-repeat;
+    vertical-align: middle;
+    border: 0;
+    margin-left: 10px;
+    padding-right: 30px;
+    outline:none;
+    cursor: pointer;
+}
+/*搜索栏部分*/
+/*头部标题栏*/
+
+/*主体部分*/
+/*学校排行榜*/
+#wrapper .school_rank{
+    width: 1024px;
+    margin: 20px auto;
+}
+.rank_title{
+    width: 100%;
+    height: 40px;
+    background: #5CC6D0;
+}
+.rank_title .title_name{
+    line-height: 40px;
+    text-align: center;
+}
+.title_name img{
+    position: relative;
+    top:2px;
+}
+.title_name span{
+    padding-left: 3px;
+    font-size: 16px;
+    color: #fff;
+}
+.rank_info{
+    width: 1022px;
+    height: 40px;
+    background: #fff;
+    border: 1px solid #E6E6E6;
+}
+.rank_info span{
+    font-size: 14px;
+    color: #585858;
+    line-height:40px;
+}
+.rank_info span:first-child{
+    padding-left: 124px;
+}
+.rank_info span:nth-child(2){
+     padding-left: 594px;
+ }
+.rank_info span:nth-child(3){
+    padding-left: 71px;
+}
+.school_rank ul li{
+    width: 1022px;
+    height: 40px;
+    border: 1px solid #E6E6E6;
+    clear: both;
+}
+.school_rank ul a:nth-child(odd) li{
+    background: #F5F5F5;
+}
+.school_rank ul a:nth-child(even) li{
+    background: #ffffff;
+}
+.school_rank ul a li span{
+    display: inline-block;
+    line-height: 40px;
+    overflow: hidden;
+    font-size: 14px;
+    color: #585858;
+}
+.num_box{
+    float: right;
+    width: 271px;
+    height: 40px;
+}
+.school_icon{
+    display: inline-block;
+    overflow: hidden;
+    width: 36px;
+    height: 36px;
+    padding-bottom: 2px;
+    padding-left: 0;
+}
+.order_num{
+    width: 115px;
+    height: 40px;
+    text-align: center;
+}
+.school_name{
+    padding-left: 20px;
+}
+.heat_index{
+    padding-left: 10px;
+}
+.index_box{
+    float: right;
+    width: 160px;
+    height: 40px;
+}
+.index_movement{
+    padding-left: 25px;
+}
+.trend_icon{
+    display: inline-block;
+    overflow: hidden;
+    padding-bottom: 14px;
+    padding-left: 6px;
+    width: 11px;
+    height: 11px;
+}
+/*学校排行榜*/
+
+/*热门事件列表*/
+#wrapper .hot_events{
+    width: 1024px;
+    margin: 20px auto;
+}
+.rank_title{
+    width: 100%;
+    height: 40px;
+    background: #5CC6D0;
+}
+.rank_title .title_name{
+    line-height: 40px;
+    text-align: center;
+}
+.title_name img{
+    position: relative;
+    top:2px;
+}
+.title_name span{
+    padding-left: 3px;
+    font-size: 16px;
+    color: #fff;
+}
+.event_list{
+    width: 1022px;
+    position: absolute;
+}
+.event_list ul li{
+    width: 100%;
+    height: 40px;
+    border: 1px solid #E6E6E6;
+    clear: both;
+    cursor: pointer;
+    background: #fff;
+}
+.event_list ul div{
+    text-align: center;
+}
+.event_type{
+    width: 1022px;
+    height: 40px;
+    background: #fff;
+    border: 1px solid #E6E6E6;
+}
+.event_type div{
+    text-align: center;
+}
+.event_type div .obj_show{
+    text-align: center;
+}
+.event_type span{
+    padding-left: 35px;
+    font-size: 14px;
+    color:#585858;
+    line-height: 40px;
+    cursor: pointer;
+}
+.event_type img{
+    padding-left: 12px;
+    cursor: pointer;
+}
+.hot_events ul li{
+    width: 1022px;
+    height: 40px;
+    border: 1px solid #E6E6E6;
+    clear: both;
+    cursor: pointer;
+}
+.hot_events ul a:nth-child(odd) li{
+    background: #F5F5F5;
+}
+.hot_events ul a:nth-child(even) li{
+    background: #ffffff;
+}
+.hot_events ul li span{
+    display: inline-block;
+    line-height: 40px;
+    overflow: hidden;
+    font-size: 14px;
+    color: #858585;
+}
+#list ul li{
+    background: #fff;
+}
+.right_arrow{
+    display: inline-block;
+    overflow: hidden;
+    line-height: 40px;
+    padding-top: 14px;
+    padding-right: 60px;
+    float: right;
+    width: 14px;
+    height: 14px;
+}
+/*热门事件列表*/
+/*主体部分*/
+
+/*底部*/
+#footer{
+    margin-top: 81px;
+    margin-bottom: 43px;
+}
+#footer p{
+    text-align: center;
+    font-size: 10px;
+    color:#858585;
+}
+/*底部*/
