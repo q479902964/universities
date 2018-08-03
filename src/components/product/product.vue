@@ -108,11 +108,22 @@
     top: 4px;
     z-index: 1;
   }
+  @media screen and (min-width: 1440px){
+    .int{
+      width: 365px;
+    }
+  }
   .wrp_box .introduce{
     position: relative;
     width:100%;
-    min-height: 426px;
+    height: 500px;
+    overflow hidden;
     background:url("./bg.png");
+  }
+  @media screen and (min-width: 1440px){
+    .wrp_box .introduce{
+      height: 426px;
+    }
   }
   .wrp_box .introduce .content{
     position: absolute;
@@ -153,6 +164,7 @@
   /*系统创新*/
   .innovate{
     margin-top: 89px;
+    overflow hidden;
   }
   .innovate .left-box{
     float: left;

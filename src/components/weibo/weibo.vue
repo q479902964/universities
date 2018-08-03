@@ -8,26 +8,34 @@
             </div>
           </div>
           <ul>
-            <li v-for="item in newsList">
-              <div class="news_box">
-                <div class="new_title"><span>标题:</span><span>{{item.news_title}}</span></div>
-                <div class="new_title"><span>来源:</span><span>{{item.news_author}}</span></div>
+            <div class="no_drag_cs">
+              <li v-for="item in newsList">
+                <div class="news_box">
+                <div class="new_title"><span>标题:</span><span class="news_title">{{item.news_title}}</span></div>
+                <div class="new_title"><span>来源:</span><span class="news_author">{{item.news_author}}</span></div>
                 <span class="t1">内容:</span>
                 <div class="t2"><span class="news_content">{{item.news_content}}</span></div>
                 <div class="num_box">
                   <div>
-                    <span>转发量:</span><span>{{item.forward_num}}</span>
+                    <span>转发量:</span><span class="forward_num">{{item.forward_num}}</span>
                   </div>
                   <div>
-                    <span>评论量:</span><span>{{item.comment_num}}</span>
+                    <span>评论量:</span><span class="comment_num">{{item.comment_num}}</span>
                   </div>
                   <div>
-                    <span>点赞量:</span><span>{{item.thumbsup_num}}</span>
+                    <span>点赞量:</span><span class="thumbsup_num">{{item.thumbsup_num}}</span>
                   </div>
                 </div>
               </div>
-            </li>
+              </li>
+            </div>
           </ul>
+        </div>
+        <div class="edit_box admin_edit" id="edit_box">
+          <div class="edit caned" @click="caneditable('weibo_news')">编辑</div>
+          <div class="edit add" @click="addedit('weibo_news')">新增</div>
+          <div class="store edit" @click="storeedit('weibo_news')">保存</div>
+          <div class="cancel edit" @click="canceledit('weibo_news')">取消</div>
         </div>
         <div class="propagation_chain">
           <div class="rank_title">
@@ -45,9 +53,39 @@
           </div>
           <div class="l-box">
             <div id="age_pie"></div>
+            <div class="age_edit" style="display: none;">
+              <div class="age_title">
+                <span>年龄段</span>
+                <span>占比值</span>
+              </div>
+              <ul>
+              </ul>
+            </div>
           </div>
           <div class="r-box">
             <div id="sex_pie"></div>
+            <div class="sex_edit" style="display: none;">
+              <div class="sex_title">
+                <span>性别</span>
+                <span>占比值</span>
+              </div>
+              <ul>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div style="width: 100%;height: 30px;clear: both" class="admin_edit">
+          <div class="edit_box" id="edit_box1">
+            <div class="edit caned" @click="caneditable('age_pie')">编辑</div>
+            <div class="edit add" @click="addedit('age_pie')">新增</div>
+            <div class="store edit" @click="storeedit('age_pie')">保存</div>
+            <div class="cancel edit" @click="canceledit('age_pie')">取消</div>
+          </div>
+          <div class="edit_box" id="edit_box2">
+            <div class="edit caned" @click="caneditable('sex_pie')">编辑</div>
+            <div class="edit add" @click="addedit('sex_pie')">新增</div>
+            <div class="store edit" @click="storeedit('sex_pie')">保存</div>
+            <div class="cancel edit" @click="canceledit('sex_pie')">取消</div>
           </div>
         </div>
         <div class="population_area">
@@ -57,17 +95,39 @@
             </div>
           </div>
           <div id="map_chart"></div>
+          <div class="map_edit" style="display: none;">
+            <div class="map_title">
+              <span>省份-占比值</span>
+            </div>
+            <ul>
+            </ul>
+          </div>
         </div>
+        <div class="edit_box admin_edit" id="edit_box3">
+          <div class="edit caned" @click="caneditable('population_area')">编辑</div>
+          <div class="add edit" @click="addedit('population_area')">新增</div>
+          <div class="store edit" @click="storeedit('population_area')">保存</div>
+          <div class="cancel edit" @click="canceledit('population_area')">取消</div>
+        </div>
+        <div style="clear: both"></div>
         <div class="topic">
           <div class="ca_ti">
             <span>话&nbsp;&nbsp;题&nbsp;&nbsp;链</span>
           </div>
           <div class="ca_box">
             <ul>
-              <li v-for="item in typeAndTopic.topic">{{item}}</li>
+              <li v-for="item in typeAndTopic.topic">
+                <span>{{item}}</span>
+              </li>
               <!--<li>中国教育</li>-->
               <!--<li>国情</li>-->
             </ul>
+          </div>
+          <div class="edit_box admin_edit" id="edit_box4">
+            <div class="edit caned" @click="caneditable('topic')">编辑</div>
+            <div class="add edit" @click="addedit('topic')">新增</div>
+            <div class="store edit" @click="storeedit('topic')">保存</div>
+            <div class="cancel edit" @click="canceledit('topic')">取消</div>
           </div>
         </div>
         <div class="active_users">
@@ -83,6 +143,12 @@
             </li>
           </ul>
         </div>
+        <div class="edit_box admin_edit" id="edit_box5">
+          <div class="edit caned" @click="caneditable('active_users')">编辑</div>
+          <div class="add edit" @click="addedit('active_users')">新增</div>
+          <div class="store edit" @click="storeedit('active_users')">保存</div>
+          <div class="cancel edit" @click="canceledit('active_users')">取消</div>
+        </div>
       </div>
     </div>
 </template>
@@ -91,7 +157,9 @@
   var echarts = require('echarts');
   require('echarts-wordcloud');
   import china from 'echarts/map/js/china.js';
-
+  import draggable from 'vuedraggable'
+  import ddsort from './ddsort'
+  var projectUrl = "http://120.79.211.191:8080/University/weibo";
     export default {
       data(){
         return {
@@ -102,10 +170,501 @@
           sexStatistics:{},
           areaStatistics:{},
           typeAndTopic:{},
-          Username:{}
+          Username:{},
+          old_text:"",
+          new_text:"",
         }
       },
+      components:{
+        draggable
+      },
       methods:{
+        // 管理者可编辑模式
+        caneditable(text){
+          if(text=='weibo_news'){
+            $('.no_drag_cs').DDSort({
+              target: 'li'           //示例而用，默认即'li'
+            });
+            this.old_text = $(".weibo_news ul").html();
+            $("#edit_box .edit").css("display", "inline-block");
+            $("#edit_box .caned").css("display", "none");
+            $(".news_title").attr("contentEditable", true);
+            $(".news_author").attr("contentEditable", true);
+            $(".news_content").attr("contentEditable", true);
+            $(".forward_num").attr("contentEditable", true);
+            $(".comment_num").attr("contentEditable", true);
+            $(".thumbsup_num").attr("contentEditable", true);
+            $(".weibo_news ul").css("overflow","visible");
+            $(".weibo_news ul").css("max-height","1000000px");
+            for (var i = 0; i < $(".weibo_news ul li").length; i++) {
+              var x = document.createElement("div");
+              x.className = "delete_li";
+              x.innerText = "×";
+              x.contentEditable = false;
+              x.addEventListener('click', function () {
+                $(this).parent().remove();
+              });
+              $(".weibo_news ul li").eq(i).append(x);
+            }
+          }
+          else if(text=='active_users'){
+            this.old_text = $(".active_users ul").html();
+            $("#edit_box5 .edit").css("display", "inline-block");
+            $("#edit_box5 .caned").css("display", "none");
+            $(".active_users ul li .event").attr("contentEditable", true);
+            $(".active_users ul li .order_num").attr("contentEditable", false);
+            for (var i = 0; i < $(".active_users ul li").length; i++) {
+              var x = document.createElement("div");
+              x.className = "delete_li";
+              x.innerText = "×";
+              x.contentEditable = false;
+              x.addEventListener('click', function () {
+                $(this).parent().remove();
+              });
+              $(".active_users ul li").eq(i).append(x);
+            }
+          }
+          else if(text=='topic'){
+            this.old_text = $("." + text + " .ca_box ul").html();
+            $("." + text + " .ca_box ul li").attr("contentEditable", true);
+            $("." + text + " .edit").css("display", "inline-block");
+            $("." + text + " .caned").css("display", "none");
+            for (var i = 0; i < $("." + text + " .ca_box ul li").length; i++) {
+              var x = document.createElement("div");
+              x.className = "delete_li2";
+              x.innerText = "×";
+              x.contentEditable = false;
+              x.addEventListener('click', function () {
+                $(this).parent().remove();
+              })
+              $("." + text + " .ca_box ul li").eq(i).append(x);
+            }
+          }
+          else if(text=="population_area"){
+            $("#edit_box3 .edit").css("display", "inline-block");
+            $("#edit_box3 .caned").css("display", "none");
+            $("#map_chart").hide();
+            $(".map_edit").show();
+            $(".map_edit ul").html("");
+            for(var i=0;i<this.areaStatistics.length;i++){
+              $(".map_edit ul").append("<li><input value='"+this.areaStatistics[i].areaName+"'></input><b>-</b><input value='"+this.areaStatistics[i].areaValue+"' type=\"" +
+                "number\" placeholder=\"占比值\"/></li>");
+              var x = document.createElement("div");
+              x.className = "delete_li1";
+              x.innerText = "×";
+              x.contentEditable = false;
+              x.addEventListener('click', function () {
+                $(this).parent().remove();
+              });
+              $(".map_edit ul li").last().append(x);
+            }
+          }
+          else if(text=="age_pie"){
+            $("#edit_box1 .edit").css("display", "inline-block");
+            $("#edit_box1 .caned").css("display", "none");
+            $("#age_pie").hide();
+            $(".age_edit").show();
+            $(".age_edit ul").html("");
+            for(var i=0;i<this.ageStatistics.length;i++){
+              $(".age_edit ul").append("<li><input type=\"text\" placeholder=\"年龄段\" value" +
+                "='"+this.ageStatistics[i].ageName+"'><b>-</b><input value='"+this.ageStatistics[i].ageValue+"' type=\"" +
+                "number\" placeholder=\"占比值\"/></li>");
+              var x = document.createElement("div");
+              x.className = "delete_li1";
+              x.innerText = "×";
+              x.contentEditable = false;
+              x.addEventListener('click', function () {
+                $(this).parent().remove();
+              });
+              $(".age_edit ul li").last().append(x);
+            }
+          }
+          else if(text=="sex_pie"){
+            $("#edit_box2 .edit").css("display", "inline-block");
+            $("#edit_box2 .caned").css("display", "none");
+            $("#sex_pie").hide();
+            $(".sex_edit").show();
+            $(".sex_edit ul").html("");
+            for(var i=0;i<this.sexStatistics.length;i++){
+              $(".sex_edit ul").append("<li><input type=\"text\" placeholder=\"性别\" value" +
+                "='"+this.sexStatistics[i].sexName+"'><b>-</b><input value='"+this.sexStatistics[i].sexValue+"' type=\"" +
+                "number\" placeholder=\"占比值\"/></li>");
+              var x = document.createElement("div");
+              x.className = "delete_li1";
+              x.innerText = "×";
+              x.contentEditable = false;
+              x.addEventListener('click', function () {
+                $(this).parent().remove();
+              });
+              $(".sex_edit ul li").last().append(x);
+            }
+          }
+        },
+        addedit(text){
+          if(text=='weibo_news'){
+            $(".weibo_news ul .no_drag_cs").append("<li><div class=\"news_box\"><div class=\"new_title\">" +
+              "<span>标题:</span><span class=\"news_title\" contenteditable='true'></span></div>" +
+              " <div class=\"new_title\"><span>来源:</span><span class=\"news_author\" contenteditable='true'></span></div>" +
+              " <span class=\"t1\">内容:</span> <div class=\"t2\"><span class=\"news_content\" contenteditable='true'></span></div> " +
+              "<div class=\"num_box\"><div><span>转发量:</span><span class=\"forward_num\" contenteditable='true'></span></div> " +
+              "<div><span>评论量:</span><span class=\"comment_num\" contenteditable='true'></span></div> " +
+              "<div><span>点赞量:</span><span class=\"thumbsup_num\" contenteditable='true'></span></div></div></div></li>")
+
+              var x = document.createElement("div");
+              x.className = "delete_li";
+              x.innerText = "×";
+              x.contentEditable = false;
+              x.addEventListener('click', function () {
+                $(this).parent().remove();
+              });
+            $(".weibo_news ul li").last().append(x);
+            $(".weibo_news ul li").last().find(".news_title").focus();
+
+          }
+          else if(text=='active_users'){
+            $(".active_users ul").append("<li><span class=\"order_num\">"+($(".active_users ul li").length+1)+"</span>\n" +
+              "<span class=\"event\"></span></li>");
+            $(".active_users ul li .event").attr("contentEditable", true);
+            var x = document.createElement("div");
+            x.className = "delete_li";
+            x.innerText = "×";
+            x.contentEditable = false;
+            x.addEventListener('click', function () {
+              $(this).parent().remove();
+            });
+            $(".active_users ul li").last().append(x);
+            $(".active_users ul li").last().find(".event").focus();
+          }
+          else if(text=='topic'){
+            if($("."+text+" .ca_box ul li").length>3){
+              alert("最多只能添加4项");
+              return;
+            }
+            var x =  document.createElement("div");
+            x.className = "delete_li2";
+            x.innerText = "×";
+            // x.style.cssText = "position:absolute;top:-10px;left:20px;color:#fb7c45;cursor:pointer;";
+            x.addEventListener('click', function () {
+              $(this).parent().remove();
+            })
+            var y = document.createElement("span");
+            y.contentEditable = true;
+            y.style.cssText = "display:inline-block;min-width:20px;";
+            var v = document.createElement("li");
+            v.style.cssText = "    float: left;\n" +
+              "    padding-left:40px;\n" +
+              "    padding-right: 40px;\n" +
+              "    text-align: center;\n" +
+              "    margin-top: 15px;\n" +
+              "    font-size: 14px;\n" +
+              "    color: #858585;\n" +
+              "    border-left: 1px solid #979797;\n" +
+              "    position: relative;outline: none;";
+            v.appendChild(y);
+            v.appendChild(x);
+            $("."+text+" .ca_box ul").append(v);
+            $("."+text+" .ca_box ul li").last().find("span").focus();
+          }
+          else if(text=="age_pie"){
+            $(".age_edit ul").append("<li><input type=\"text\" placeholder=\"年龄段\" required><b>-</b><input required type=\"" +
+              "number\" placeholder=\"占比值\"/></li>");
+            var x = document.createElement("div");
+            x.className = "delete_li1";
+            x.innerText = "×";
+            x.contentEditable = false;
+            x.addEventListener('click', function () {
+              $(this).parent().remove();
+            });
+            $(".age_edit ul li").last().append(x);
+            $(".age_edit ul li").last().find("input").first().focus();
+          }
+          else if(text=="sex_pie"){
+            $(".sex_edit ul").append("<li><input type=\"text\" placeholder=\"性别\" required><b>-</b><input required type=\"" +
+              "number\" placeholder=\"占比值\"/></li>");
+            var x = document.createElement("div");
+            x.className = "delete_li1";
+            x.innerText = "×";
+            x.contentEditable = false;
+            x.addEventListener('click', function () {
+              $(this).parent().remove();
+            });
+            $(".sex_edit ul li").last().append(x);
+            $(".sex_edit ul li").last().find("input").first().focus();
+          }
+          else if(text=="population_area"){
+            $(".map_edit ul").append("<li><input type=\"text\" placeholder=\"省份\" required><b>-</b><input required type=\"" +
+              "number\" placeholder=\"占比值\"/></li>");
+            var x = document.createElement("div");
+            x.className = "delete_li1";
+            x.innerText = "×";
+            x.contentEditable = false;
+            x.addEventListener('click', function () {
+              $(this).parent().remove();
+            });
+            $(".map_edit ul li").last().append(x);
+            $(".map_edit ul li").last().find("input").first().focus();
+          }
+        },
+        storeedit(text){
+          if(text=='weibo_news'){
+            for(var i=0;i<$(".weibo_news ul .drag_cs li").length;i++) {
+              if ($(".weibo_news ul .no_drag_cs li").eq(i).find(".news_title").text() == "" && $(".weibo_news ul .no_drag_cs li").eq(i).find(".news_author").text()== ""
+                &&$(".weibo_news ul .no_drag_cs li").eq(i).find(".news_content").text()== "" && $(".weibo_news ul .no_drag_cs li").eq(i).find(".forward_num").text()== ""
+                && $(".weibo_news ul .no_drag_cs li").eq(i).find(".comment_num").text()== ""&& $(".weibo_news ul .no_drag_cs li").eq(i).find(".thumbsup_num").text()== "") {
+                alert("输入不能全为空");
+                return;
+              }
+            }
+
+            // $("#edit_box .edit").css("display", "none");
+            // $("#edit_box .caned").css("display", "inline-block");
+            // $(".weibo_news ul").css("overflow","auto");
+            // $(".weibo_news ul").css("max-height","716px");
+
+            var temp ={}
+            var data =[];
+
+            for(var i=0;i<$(".weibo_news ul .no_drag_cs li").length;i++){
+              // $(".weibo_news ul .no_drag_cs li").eq(i).find(".delete_li").remove();
+              temp = {news_title:$(".weibo_news ul .no_drag_cs li").eq(i).find(".news_title").text(),
+                      news_author:$(".weibo_news ul .no_drag_cs li").eq(i).find(".news_author").text(),
+                      news_content:$(".weibo_news ul .no_drag_cs li").eq(i).find(".news_content").text(),
+                      forward_num:$(".weibo_news ul .no_drag_cs li").eq(i).find(".forward_num").text(),
+                      comment_num:$(".weibo_news ul .no_drag_cs li").eq(i).find(".comment_num").text(),
+                      thumbsup_num:$(".weibo_news ul .no_drag_cs li").eq(i).find(".thumbsup_num").text()
+              };
+              data.push(temp);
+            }
+            data = {newsList:data};
+            console.log(data);
+            // $(".news_title").attr("contentEditable", false);
+            // $(".news_author").attr("contentEditable", false);
+            // $(".news_content").attr("contentEditable", false);
+            // $(".forward_num").attr("contentEditable", false);
+            // $(".comment_num").attr("contentEditable", false);
+            // $(".thumbsup_num").attr("contentEditable", false);
+
+            this.$http.post('',data).then((res)=>{
+              res = res.body;
+              console.log(res);
+              if(res.code == 1){
+                alert("修改成功!")
+                this.$router.go(0);
+              }else{
+                alert("修改失败!")
+              }
+            }).catch(error => {
+              alert("修改失败!")
+            });
+
+          }
+          else if(text=='active_users'){
+            for(var i=0;i<$(".active_users ul li").length;i++) {
+              if ($(".active_users ul li").eq(i).find(".event").text() == "") {
+                alert("输入不能全为空");
+                return;
+              }
+            }
+            // $("#edit_box5 .edit").css("display", "none");
+            // $("#edit_box5 .caned").css("display", "inline-block");
+
+            var temp = [];
+            for(var i=0;i<$(".active_users ul li").length;i++){
+              // $(".active_users ul li").eq(i).find(".delete_li").remove();
+              temp.push($(".active_users ul li").eq(i).find(".event").text());
+            }
+
+            var data = {username:temp};
+            console.log(data)
+            this.$http.post('',data).then((res)=>{
+              res = res.body;
+              console.log(res);
+              if(res.code == 1){
+                alert("修改成功!")
+                this.$router.go(0);
+              }else{
+                alert("修改失败!")
+              }
+            }).catch(error => {
+              alert("修改失败!")
+            });
+          }
+          else if(text=='topic'){
+            for(var i=0;i<$("."+text+" .ca_box ul li").length;i++){
+              if($("."+text+" .ca_box ul li").eq(i).find("span").text()==""){
+                alert("请输入内容")
+                return;
+              }
+            }
+            // $("."+text+" .ca_box ul li").attr("contentEditable", false);
+            // $("."+text+" .edit").css("display","none");
+            // $("."+text+" .caned").css("display","inline-block");
+            // for(var i=0;i<$("."+text+" .ca_box ul li").length;i++){
+            //   $("."+text+" .ca_box ul li").eq(i).find("div").remove();
+            // }
+
+            var temp = [];
+            for(var i=0;i<$(".topic .ca_box ul li").length;i++){
+              temp.push($(".topic .ca_box ul li").eq(i).find("span").text());
+            }
+            var data = {topic:temp};
+            console.log(data)
+            this.$http.post('',data).then((res)=>{
+              res = res.body;
+              console.log(res);
+              if(res.code == 1){
+                alert("修改成功!")
+                this.$router.go(0);
+              }else{
+                alert("修改失败!")
+              }
+            }).catch(error => {
+              alert("修改失败!")
+            });
+          }
+          else if(text=="population_area"){
+            for(var i=0;i<$(".map_edit ul li").length;i++) {
+              if ($(".age_edit ul li").eq(i).find("input").val() == "") {
+                alert("输入不能为空");
+                return;
+              }
+            }
+            this.areaStatistics =[];
+            var temp ={};
+            for(var i=0;i<$(".map_edit ul li").length;i++) {
+              temp = {areaName:$(".map_edit ul li").eq(i).find("span").eq(0).text(),areaValue:$(".map_edit ul li").eq(i).find("input").val()};
+              this.areaStatistics.push(temp);
+            }
+            // this.area_charts();
+            // $("#edit_box3 .edit").css("display", "none");
+            // $("#edit_box3 .caned").css("display", "inline-block");
+            // $("#map_pie").show();
+            // $(".map_edit").hide();
+
+            var data = {areaStatistics:this.areaStatistics};
+            console.log(data);
+            this.$http.post('',data).then((res)=>{
+              res = res.body;
+              console.log(res);
+              if(res.code == 1){
+                alert("修改成功!")
+                this.$router.go(0);
+              }else{
+                alert("修改失败!")
+              }
+            }).catch(error => {
+              alert("修改失败!")
+            });
+          }
+          else if(text=="age_pie"){
+            for(var i=0;i<$(".age_edit ul li").length;i++) {
+              if ($(".age_edit ul li").eq(i).find("input").eq(0).val() == "" || $(".age_edit ul li").eq(i).find("input").eq(1).val() == "") {
+                alert("输入不能为空");
+                return;
+              }
+            }
+            this.ageStatistics =[];
+            var temp ={};
+            for(var i=0;i<$(".age_edit ul li").length;i++) {
+              temp = {ageName:$(".age_edit ul li").eq(i).find("input").eq(0).val(),ageValue:$(".age_edit ul li").eq(i).find("input").eq(1).val()};
+              this.ageStatistics.push(temp);
+            }
+            // this.age_charts();
+            // $("#edit_box1 .edit").css("display", "none");
+            // $("#edit_box1 .caned").css("display", "inline-block");
+            // $("#age_pie").show();
+            // $(".age_edit").hide();
+
+            var data = {ageStatistics:this.ageStatistics};
+            console.log(data);
+            this.$http.post('',data).then((res)=>{
+              res = res.body;
+              console.log(res);
+              if(res.code == 1){
+                alert("修改成功!")
+                this.$router.go(0);
+              }else{
+                alert("修改失败!")
+              }
+            }).catch(error => {
+              alert("修改失败!")
+            });
+          }
+          else if(text=="sex_pie"){
+            for(var i=0;i<$(".sex_edit ul li").length;i++) {
+              if ($(".sex_edit ul li").eq(i).find("input").eq(0).val() == "" || $(".sex_edit ul li").eq(i).find("input").eq(1).val() == "") {
+                alert("输入不能为空");
+                return;
+              }
+            }
+            this.sexStatistics =[];
+            var temp ={};
+            for(var i=0;i<$(".sex_edit ul li").length;i++) {
+              temp = {sexName:$(".sex_edit ul li").eq(i).find("input").eq(0).val(),sexValue:$(".sex_edit ul li").eq(i).find("input").eq(1).val()};
+              this.sexStatistics.push(temp);
+            }
+            // this.sex_charts();
+            // $("#edit_box2 .edit").css("display", "none");
+            // $("#edit_box2 .caned").css("display", "inline-block");
+            // $("#sex_pie").show();
+            // $(".sex_edit").hide();
+
+            var data = {sexStatistics:this.sexStatistics};
+            console.log(data);
+            this.$http.post('',data).then((res)=>{
+              res = res.body;
+              console.log(res);
+              if(res.code == 1){
+                alert("修改成功!")
+                this.$router.go(0);
+              }else{
+                alert("修改失败!")
+              }
+            }).catch(error => {
+              alert("修改失败!")
+            });
+          }
+        },
+        canceledit(text){
+          if(text=='weibo_news'){
+            $(".weibo_news ul").html(this.old_text);
+            $("#edit_box .edit").css("display", "none");
+            $("#edit_box .caned").css("display", "inline-block");
+            $(".weibo_news ul").css("overflow","auto");
+            $(".weibo_news ul").css("max-height","716px");
+          }
+          else if(text=='active_users'){
+            $(".active_users ul").html(this.old_text);
+            $("#edit_box5 .edit").css("display", "none");
+            $("#edit_box5 .caned").css("display", "inline-block");
+          }
+          else if(text=="topic"){
+            $("."+text+" .ca_box ul li").attr("contentEditable", false);
+            $("."+text+" .edit").css("display","none");
+            $("."+text+" .caned").css("display","inline-block");
+            $("."+text+" .ca_box ul").html(this.old_text);
+          }
+          else if(text=="population_area"){
+            $("#edit_box3 .edit").css("display", "none");
+            $("#edit_box3 .caned").css("display", "inline-block");
+            $("#map_chart").show();
+            $(".map_edit").hide();
+          }
+          else if(text=="age_pie"){
+            $(".age_edit ul").html("");
+            $("#edit_box1 .edit").css("display", "none");
+            $("#edit_box1 .caned").css("display", "inline-block");
+            $("#age_pie").show();
+            $(".age_edit").hide();
+          }
+          else if(text=="sex_pie"){
+            $(".sex_edit ul").html("");
+            $("#edit_box2 .edit").css("display", "none");
+            $("#edit_box2 .caned").css("display", "inline-block");
+            $("#sex_pie").show();
+            $(".sex_edit").hide();
+          }
+        },
         chain_charts(){
           var chain_line = echarts.init(document.getElementById("chain_charts"));
           chain_line.setOption({
@@ -396,8 +955,12 @@
       },
       created(){
         this.input =this.$route.query.eid;
+        $("*").attr("spellCheck",false);
       },
       mounted(){
+        if(sessionStorage.getItem("username")){
+          $(".admin_edit").show();
+        }
         this.$http.get(projectUrl+'/newsList?eid='+this.input+"&pid=2").then((response) => {
           response = response.data;
           // console.log(response);
@@ -427,7 +990,7 @@
           this.areaStatistics = response;
           this.area_charts()
         })
-        this.$http.get().then((response) => {
+        this.$http.get("http://120.79.211.191:8080/University/event/typeAndTopic?eid="+this.input+"&pid=2").then((response) => {
           response = response.data;
           // console.log(response);
           this.typeAndTopic = response;
@@ -441,7 +1004,75 @@
     }
 </script>
 
-<style scoped>
+<style>
+  .weibo .admin_edit{
+    display: none;
+  }
+  /*编辑按钮样式*/
+  .weibo #edit_box1,.weibo #edit_box2{
+    display: inline-block;
+    width: 502px;
+  }
+  .weibo #edit_box1{
+    float: left;
+  }
+  .weibo #edit_box2{
+    margin-left: 20px;
+    float: left;
+  }
+  .weibo .edit:hover{
+    background:  #FB7C45;
+    color:#fff;
+  }
+  .weibo .store,.weibo .add,.weibo .cancel{
+    display: none;
+  }
+  .weibo .edit_box{
+    width: 100%;
+    height: 30px;
+    text-align: center;
+  }
+  .weibo .edit_box .edit{
+    width: 50px;
+    height: 30px;
+    line-height: 30px;
+    border-radius: 3px;
+    border: 1px solid #676972;
+    text-align: center;
+    font-size: 14px;
+    cursor: pointer;
+    margin: 10px auto 0 auto ;
+  }
+  .weibo #edit_box4{
+    width:auto;
+    height: 30px;
+    float: right;
+  }
+  .weibo #edit_box4 .edit{
+    margin-right: 8px;
+  }
+  .weibo .delete_li{
+    position:absolute;
+    top:0px;
+    left:5px;
+    color:#fb7c45;
+    cursor:pointer;
+  }
+  .weibo .delete_li1{
+    color:#fb7c45;
+    cursor:pointer;
+    display: inline-block;
+    margin-left: 2px;
+    font-size: 20px;
+  }
+  .weibo .delete_li2{
+    position:absolute;
+    top:-10px;
+    left:20px;
+    color:#fb7c45;
+    cursor:pointer;
+  }
+  /*编辑按钮样式*/
   /*主体部分*/
   /*事件信息*/
   #wrapper {
@@ -449,24 +1080,35 @@
     margin: 20px auto;
   }
   /*微博新闻*/
-  .weibo_news{
+  .weibo .weibo_news{
     margin-top: 40px;
     box-shadow: 0 4px 4px 0 rgba(224,224,224,0.50);
   }
-  .weibo_news ul{
+  .weibo .weibo_news ul{
     max-height: 716px;
     overflow: auto;
   }
+  .weibo .news_author,.news_title{
+    min-width: 200px;
+    display: inline-block;
+  }
+  .weibo .forward_num,.comment_num,.thumbsup_num{
+    min-width: 50px;
+    display: inline-block;
+  }
+  .weibo .news_content{
+    min-height: 50px;
+  }
   /*滚轮条样式*/
-  .weibo_news ul::-webkit-scrollbar-track-piece{
+  .weibo .weibo_news ul::-webkit-scrollbar-track-piece{
     background-color:transparent;/*滚动条的背景颜色*/
     -webkit-border-radius:6px;/*滚动条的圆角宽度*/
   }
-  .weibo_news ul::-webkit-scrollbar{
+  .weibo .weibo_news ul::-webkit-scrollbar{
     width:12px;/*滚动条的宽度*/
     height:80px;/*滚动条的高度*/
   }
-  .weibo_news ul::-webkit-scrollbar-thumb:vertical{/*垂直滚动条的样式*/
+  .weibo .weibo_news ul::-webkit-scrollbar-thumb:vertical{/*垂直滚动条的样式*/
 
     background-color:#999;
     -webkit-border-radius:4px;
@@ -474,61 +1116,61 @@
     outline-offset:-2px;
   }
   /*滚轮条样式*/
-  .weibo_news ul li{
+  .weibo .weibo_news ul li{
     width: 1022px;
     min-height: 177px;
     border: 1px solid #E6E6E6;
     background: #fff;
     position: relative;
   }
-  .rank_title{
+  .weibo .rank_title{
     width: 100%;
     height: 40px;
     background: #676972;
   }
-  .rank_title .title_name{
+  .weibo .rank_title .title_name{
     line-height: 40px;
     text-align: center;
   }
-  .title_name img{
+  .weibo .title_name img{
     position: relative;
     top:2px;
   }
-  .title_name span{
+  .weibo .title_name span{
     padding-left: 3px;
     font-size: 16px;
     color: #fff;
   }
-  .weibo_news ul li:nth-child(even){
+  .weibo .weibo_news ul li:nth-child(even){
     background: #F5F5F5;
   }
-  .weibo_news ul li:nth-child(odd){
+  .weibo .weibo_news ul li:nth-child(odd){
     background: #ffffff;
   }
-  .new_title{
+  .weibo .new_title{
     width: 984px;
     margin-left: 20px;
   }
-  .new_title:first-of-type{
+  .weibo .new_title:first-of-type{
     margin-top: 10px;
   }
-  .new_title span:first-of-type{
+  .weibo .new_title span:first-of-type{
     font-size: 12px;
     color: #858585;
   }
-  .new_title span:nth-of-type(2){
+  .weibo .new_title span:nth-of-type(2){
     padding-left: 10px;
     font-size: 12px;
     color: #585858;
   }
-  .t1{
+  .weibo .t1{
     float: left;
     padding-top: 5px;
     padding-left: 20px;
     font-size: 12px;
     color: #858585;
   }
-  .t2{
+  .weibo .t2{
     width: 943px;
     height: 70px;
     display: inline-block;
@@ -537,30 +1179,30 @@
     overflow: hidden;
     margin-bottom: 53px;
   }
-  .news_content{
+  .weibo .news_content{
     width: 943px;
     display: inline-block;
     font-size: 12px;
     color: #585858;
   }
-  .num_box{
+  .weibo .num_box{
     width: 480px;
     float: right;
     right: 20px;
     bottom:20px;
     position: absolute;
   }
-  .num_box div{
+  .weibo .num_box div{
     width: 140px;
     display: inline-block;
     padding-left: 10px;
     border-left: 3px solid #FB7C45;
   }
-  .num_box div span:first-of-type{
+  .weibo .num_box div span:first-of-type{
     font-size: 14px;
     color: #858585;
   }
-  .num_box div span:nth-of-type(2){
+  .weibo .num_box div span:nth-of-type(2){
     font-size: 14px;
     color: #585858;
     margin-left: 10px;
@@ -586,8 +1228,8 @@
   .population_attribute{
     margin-top: 20px;
     width: 1024px;
-    height: 420px;
-    box-shadow: 0 4px 4px 0 rgba(224,224,224,0.50);
+    /*height: 460px;*/
+    /*box-shadow: 0 4px 4px 0 rgba(224,224,224,0.50);*/
     background: #fff;
   }
   .l-box,.r-box{
@@ -599,6 +1241,21 @@
     width: 100%;
     height: 100%;
   }
+  /*热度走势可编辑*/
+  .age_title,.sex_title{
+    padding: 8px;
+  }
+  .age_title span:nth-of-type(2){
+    margin-left: 115px;
+  }
+  .sex_title span:nth-of-type(2){
+    margin-left: 130px;
+  }
+  .age_edit ul li,.sex_edit ul li{
+    padding: 5px 0 0 8px;
+    display: inline-block;
+  }
+
   /*关注人群属性分析*/
 
   /*关注人群地域分析*/
@@ -606,12 +1263,24 @@
     margin-top: 20px;
     width: 1024px;
     height: 700px;
+    max-height: 700px;
     box-shadow: 0 4px 4px 0 rgba(224,224,224,0.50);
     background: #fff;
   }
   #map_chart{
     width: 100%;
-    height: 100%;
+    height: 660px;
+  }
+  /*地域可编辑*/
+  .map_title{
+    padding: 8px;
+  }
+  .map_title span:nth-of-type(2){
+    margin-left: 145px;
+  }
+  .map_edit ul li{
+    padding: 8px;
+    display: inline-block;
   }
   /*关注人群地域分析*/
 
@@ -647,6 +1316,7 @@
     font-size: 14px;
     color: #858585;
     border-left: 1px solid #979797;
+    position: relative;
   }
   .ca_box ul li:first-of-type{
     border-left: 0;
@@ -706,6 +1376,7 @@
     height: 50px;
     border: 1px solid #E6E6E6;
     clear: both;
+    position: relative;
   }
   .active_users ul li:nth-child(odd){
     background: #F5F5F5;
@@ -719,6 +1390,10 @@
     overflow: hidden;
     font-size: 14px;
     color: #858585;
+  }
+  .active_users ul li .event{
+    min-width: 100px;
+    height: 50px;
   }
   /*意见领袖表*/
   /*主体部分*/

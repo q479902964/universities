@@ -216,7 +216,7 @@
     },
       mounted(){
         this.flag=true;
-        this.$http.get().then((response) => {
+        this.$http.get("http://120.79.211.191:8080/University/event/index").then((response) => {
           var id = [];
           var temp = {};
           response = response.data;
@@ -251,7 +251,7 @@
           var temp;
           this.$nextTick(()=>{
             for (var i = 0; i < this.event_id.length; i++) {
-              this.$http.get().then((response) => {
+              this.$http.get("http://120.79.211.191:8080/University/event/eventDetail?eid=" + this.event_id[i] + "&pid=1").then((response) => {
                 if (response) {
                   response = response.data;
                   this.event_nid.push(response.event_id);

@@ -92,6 +92,18 @@
     z-index: 1;
     /*-webkit-animation:go 2s infinite linear*/
   }
+    @media screen and (min-width: 1180px){
+      .int{
+        width: 30.8%;//
+        top: 60px;
+      }
+    }
+  @media screen and (min-width: 1440px){
+    .int{
+      width: 467px;
+      top: 19px;
+    }
+  }
   .wrap_box .introduce{
     position: relative;
     width:100%;

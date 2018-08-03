@@ -482,7 +482,7 @@ a{
 /*热度走势*/
 .hot_trend{
     width: 1024px;
-    height: 460px;
+    min-height: 460px;
     margin-top: 20px;
     background: #fff;
     box-shadow: 0 4px 4px 0 rgba(224,224,224,0.50);

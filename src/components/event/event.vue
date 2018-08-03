@@ -12,6 +12,11 @@
                 {{event.introduce}}
               </p>
             </div>
+            <div class="edit_box1 admin_edit">
+              <div class="edit caned" @click="caneditable()">编辑</div>
+              <div class="cancel edit" @click="canceledit()">取消</div>
+              <div class="store edit" @click="storeedit()">保存</div>
+            </div>
           </div>
         </div>
         <div class="tab_box">
@@ -33,22 +38,63 @@
 </template>
 
 <script>
-
+  var projectUrl = "http://120.79.211.191:8080/University/event";
     export default {
       data(){
         return{
           input:{},
           event:{},
-          transitionName:''
+          transitionName:'',
+          old_text:""
         }
       },
       mounted(){
+        if(sessionStorage.getItem("username")){
+          $(".event .admin_edit").show();
+        }
         this.input =this.$route.query.eid;
-        this.$http.get().then((response) => {
+        this.$http.get(projectUrl+"/eventDetail?eid="+this.input+"&pid=1").then((response) => {
           response = response.data;
           this.event = response;
           $(".event_message").css("background-image","url(\""+this.event.event_img+"\")");
         })
+      },
+      methods:{
+        caneditable(){
+          this.old_text = $(".message_box").html();
+          $(".edit_box1 .edit").css("display","inline-block");
+          $(".edit_box1 .caned").css("display","none");
+          $("#event_topic").attr("contentEditable", true);
+          $("#event_date").attr("contentEditable", true);
+          $("#introduce").attr("contentEditable", true);
+          $("#event_topic").focus();
+        },
+        canceledit(){
+          $(".message_box").html(this.old_text);
+          $(".edit_box1 .edit").css("display","none");
+          $(".edit_box1 .caned").css("display","inline-block");
+        },
+        storeedit(){
+          // $(".edit_box1 .edit").css("display","none");
+          // $(".edit_box1 .caned").css("display","inline-block");
+          // $("#event_topic").attr("contentEditable", false);
+          // $("#event_date").attr("contentEditable",false);
+          // $("#introduce").attr("contentEditable", false);
+
+          var data = {event_topic:$("#event_topic").text(),event_date:$("#event_date").text(),introduce:$("#introduce").text()}
+          this.$http.post('',data).then((res)=>{
+            res = res.body;
+            console.log(res);
+            if(res.code == 1){
+              alert("修改成功!")
+              this.$router.go(0);
+            }else{
+              alert("修改失败!")
+            }
+          }).catch(error => {
+            alert("修改失败!")
+          });
+        }
       },
       watch: {//使用watch 监听$router的变化
         $route(to, from) {
@@ -65,6 +111,9 @@
 </script>
 
 <style scoped lang="stylus">
+  .event .admin_edit{
+    display none;
+  }
   #wrap{
     width: 1024px;
     margin: 20px auto;
@@ -80,11 +129,43 @@
     width: 100%;
     min-height: 470px;
     background: rgba(38,75,78,0.50);
+    position:relative;
   }
   .message_box{
     width: 825px;
     padding-top: 200px;
     padding-left: 100px;
+  }
+  .edit_box1 .edit{
+    width: 50px;
+    height: 30px;
+    position absolute;
+    top:0;
+    right 0;
+    line-height: 30px;
+    border-radius: 3px;
+    border: 1px solid #fff;
+    color:#fff;
+    text-align: center;
+    margin-top: 10px;
+    font-size: 14px;
+    cursor: pointer;
+    margin-right: 8px;
+  }
+  .edit_box1 .edit:hover{
+    background:  #FB7C45;
+    color:#676972;
+  }
+  .edit_box1 .store,.cancel{
+    display: none;
+  }
+  .edit_box1 .cancel{
+    top:0;
+    right:0;
+  }
+  .edit_box1 .store{
+    top:0;
+    right:58px;
   }
   .event_title{
     width: 100%;

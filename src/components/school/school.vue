@@ -69,7 +69,7 @@
 <script>
   var echarts = require('echarts');
   require('echarts-wordcloud');
-
+  const projectUrl = "http://120.79.211.191:8080/University/school";
   const dataStyle = {
     normal: {
       label: {show:false},
@@ -242,7 +242,7 @@
             show: true
           },
           series: [{
-            name: 'Google Trends',
+            // name: 'Google Trends',
             type: 'wordCloud',
             size: ['80%', '80%'],
             textRotation : [0, 45, 90, -45],

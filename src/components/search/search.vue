@@ -62,7 +62,7 @@
 </template>
 
 <script>
-
+  var projectUrl = "http://120.79.211.191:8080";
   export default {
      data(){
        return {

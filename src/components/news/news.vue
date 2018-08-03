@@ -8,9 +8,17 @@
           </div>
           <div class="ca_box">
             <ul>
-              <li v-for="item in typeAndTopic.classification">{{item}}</li>
+              <li v-for="item in typeAndTopic.classification">
+                <span>{{item}}</span>
+              </li>
               <!--<li>教师类事件</li>-->
             </ul>
+          </div>
+          <div class="admin_edit">
+            <div class="edit caned" @click="caneditable('event_catelogy')">编辑</div>
+            <div class="cancel edit" @click="canceledit('event_catelogy',typeAndTopic.classification)">取消</div>
+            <div class="store edit" @click="storeedit('event_catelogy')">保存</div>
+            <div class="add edit" @click="addedit('event_catelogy')">新增</div>
           </div>
         </div>
         <div class="topic">
@@ -19,10 +27,18 @@
           </div>
           <div class="ca_box">
             <ul>
-              <li v-for="item in typeAndTopic.topic">{{item}}</li>
+              <li v-for="item in typeAndTopic.topic">
+                <span>{{item}}</span>
+              </li>
               <!--<li>中国教育</li>-->
               <!--<li>国情</li>-->
             </ul>
+          </div>
+          <div class="admin_edit">
+            <div class="edit caned" @click="caneditable('topic')">编辑</div>
+            <div class="cancel edit" @click="canceledit('topic')">取消</div>
+            <div class="store edit" @click="storeedit('topic')">保存</div>
+            <div class="add edit" @click="addedit('topic')">新增</div>
           </div>
         </div>
         <div class="event_chain">
@@ -40,12 +56,20 @@
               <div class="circle"></div>
             </div>
             <ul>
-              <li v-for="item in Development">
-                <span class="event_date">{{item.event_date}}</span>
-                <span class="event_content" :title="item.event_content">{{item.event_content}}</span>
-              </li>
+              <div class="no_drag_cs">
+                <li v-for="(item,index) in Development">
+                  <span class="event_date">{{item.event_date}}</span>
+                  <span class="event_content" :title="item.event_content">{{item.event_content}}</span>
+                </li>
+              </div>
             </ul>
           </div>
+        </div>
+        <div class="edit_box admin_edit" id="edit_box">
+          <div class="edit_1 caned" @click="caneditable('event_box')">编辑</div>
+          <div class="add edit_1" @click="addedit('event_box')">新增</div>
+          <div class="store edit_1" @click="storeedit('event_box')">保存</div>
+          <div class="cancel edit_1" @click="canceledit('event_box')">取消</div>
         </div>
         <div class="position_detection">
           <div class="rank_title">
@@ -54,10 +78,10 @@
             </div>
           </div>
           <div class="comment_box">
-            <div class="c_box" v-for="item in ObjStatistics">
+            <div class="c_box" v-for="(item,index) in ObjStatistics">
               <div class="comment_position">
                 <div class="favor_line"></div>
-                <span>{{item.obj}}</span>
+                <span @keyup="line_adapt()">{{item.obj}}</span>
                 <div class="opposition_line"></div>
               </div>
               <ul class="change_box smoothchange1" style="margin-left: 0px;">
@@ -65,25 +89,33 @@
                   <div class="obj_comment">
                     <div class="circle2"></div>
                     <span>支持评论</span>
-                    <span>占比{{item.favor}}%</span>
+                    <span>占比<span class="percent_info">{{item.favor*100}}</span>%</span>
                   </div>
                   <ul>
-                    <li v-for="info in item.favor_comment" :title="info">{{info}}</li>
+                    <li v-for="info in item.favor_comment" :title="info"><span>{{info}}</span></li>
                   </ul>
+                  <div class="add edit_1" @click="addcomment(index,0)">新增</div>
                 </li>
                 <li class="li2 li">
                   <div class="obj_comment">
                     <div class="circle3"></div>
                     <span>反对评论</span>
-                    <span>占比{{item.opposition}}%</span>
+                    <span>占比<span class="percent_info">{{item.opposition*100}}</span>%</span>
                   </div>
                   <ul>
-                    <li v-for="info in item.opposition_comment" :title="info">{{info}}</li>
+                    <li v-for="info in item.opposition_comment" :title="info"><span>{{info}}</span></li>
                   </ul>
+                  <div class="add edit_1" @click="addcomment(index,1)">新增</div>
                 </li>
               </ul>
             </div>
           </div>
+        </div>
+        <div class="edit_box1 admin_edit" id="edit_box1">
+          <div class="edit_1 caned" @click="caneditable('position_detection')">编辑</div>
+          <div class="edit_1 add" @click="addedit('position_detection')">新增</div>
+          <div class="store edit_1" @click="storeedit('position_detection')">保存</div>
+          <div class="cancel edit_1" @click="canceledit('position_detection')">取消</div>
         </div>
         <div class="hot_trend">
           <div class="rank_title">
@@ -92,6 +124,20 @@
             </div>
           </div>
           <div id="trend_chart"></div>
+          <div class="hot_trend_edit" style="display: none;">
+              <div class="trend_title">
+                <span>x轴</span>
+                <span>y轴</span>
+              </div>
+              <ul>
+              </ul>
+          </div>
+        </div>
+        <div class="edit_box1 admin_edit" id="edit_box2">
+          <div class="edit_1 caned" @click="caneditable('hot_trend')">编辑</div>
+          <div class="edit_1 add" @click="addedit('hot_trend')">新增</div>
+          <div class="store edit_1" @click="storeedit('hot_trend')">保存</div>
+          <div class="cancel edit_1" @click="canceledit('hot_trend')">取消</div>
         </div>
         <div class="percent_chart">
           <div class="l-box">
@@ -101,6 +147,14 @@
               </div>
             </div>
             <div id="news_pie"></div>
+            <div class="news_edit" style="display: none;">
+              <div class="news_title">
+                <span>新闻名字</span>
+                <span>占比值</span>
+              </div>
+              <ul>
+              </ul>
+            </div>
           </div>
           <div class="r-box">
             <div class="rank_title">
@@ -109,6 +163,28 @@
               </div>
             </div>
             <div id="emotion_pie"></div>
+            <div class="emotions_edit" style="display: none;">
+              <div class="news_title">
+                <span>情绪名字</span>
+                <span>占比值</span>
+              </div>
+              <ul>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div style="width: 100%;height: 30px" class="admin_edit">
+          <div class="edit_box1" id="edit_box3">
+            <div class="edit_1 caned" @click="caneditable('news_percent')">编辑</div>
+            <div class="edit_1 add" @click="addedit('news_percent')">新增</div>
+            <div class="store edit_1" @click="storeedit('news_percent')">保存</div>
+            <div class="cancel edit_1" @click="canceledit('news_percent')">取消</div>
+          </div>
+          <div class="edit_box1" id="edit_box4">
+            <div class="edit_1 caned" @click="caneditable('emotions_percent')">编辑</div>
+            <div class="edit_1 add" @click="addedit('emotions_percent')">新增</div>
+            <div class="store edit_1" @click="storeedit('emotions_percent')">保存</div>
+            <div class="cancel edit_1" @click="canceledit('emotions_percent')">取消</div>
           </div>
         </div>
         <div class="key_word">
@@ -118,6 +194,20 @@
             </div>
           </div>
           <div id="keyword"></div>
+          <div class="keyword_edit" style="display: none;">
+            <div class="news_title">
+              <span>关键词</span>
+              <span>占比值</span>
+            </div>
+            <ul>
+            </ul>
+          </div>
+        </div>
+        <div class="edit_box1 admin_edit" id="edit_box5">
+          <div class="edit_1 caned" @click="caneditable('key_word')">编辑</div>
+          <div class="edit_1 add" @click="addedit('key_word')">新增</div>
+          <div class="store edit_1" @click="storeedit('key_word')">保存</div>
+          <div class="cancel edit_1" @click="canceledit('key_word')">取消</div>
         </div>
       </div>
     </div>
@@ -126,22 +216,771 @@
 <script>
   var echarts = require('echarts');
   require('echarts-wordcloud');
-
+  import draggable from 'vuedraggable'
+  import ddsort from './ddsort'
+  var projectUrl = "http://120.79.211.191:8080/University/event";
   export default {
+    components:{
+      draggable
+    },
     data(){
       return{
         input:{},
         typeAndTopic:{},
         Development:{},
         ObjStatistics:{},
-        EmotionTrend:{},
+        EmotionTrend:[],
         NewsStatistics:{},
         EmotionStatistics:{},
         EventKeyword:{},
-        blueline:0
+        blueline:0,
+        old_text:"",
       }
     },
     methods:{
+      //百分比条适应
+      line_adapt(){
+        this.$nextTick(()=>{
+          for(var i =0;i<$(".comment_position").length;i++){
+            $(".opposition_line").eq(i).width(this.ObjStatistics[i].opposition*(944-$(".comment_position").eq(i).find("span").width()));
+            $(".favor_line").eq(i).width(this.ObjStatistics[i].favor*(944-$(".comment_position").eq(i).find("span").width()));
+          }
+        })
+      },
+      //增加评论
+      addcomment(index1,index2){
+        var x = document.createElement("div");
+        x.className = "delete_li2";
+        x.innerText = "×";
+        x.contentEditable = false;
+        x.addEventListener('click', function () {
+          $(this).parent().remove();
+        });
+        var y = document.createElement("span");
+        y.contentEditable = true;
+        var z = document.createElement("li");
+        z.contentEditable = false;
+        z.appendChild(y);
+        z.appendChild(x);
+        if(index2==0){
+          $(".c_box").eq(index1).find(".li1 ul").append(z);
+        }else{
+          $(".c_box").eq(index1).find(".li2 ul").append(z)
+        }
+      },
+      //管理员可编辑模式
+      caneditable(text){
+        if(text=='event_box') {
+          $(".event_chain").css('position',"static");
+          $('.no_drag_cs').DDSort({
+            target: 'li'           //示例而用，默认即'li'
+          });
+          this.old_text = $(".event_box ul").html();
+          $("#edit_box .edit_1").css("display", "inline-block");
+          $("#edit_box .caned").css("display", "none");
+          $(".event_box ul li span").attr("contentEditable", true);
+          $(".line").hide();
+          $(".event_box").css("overflow","visible");
+          $(".event_box").css("max-height","1000000px");
+          for (var i = 0; i < $(".event_box ul li").length; i++) {
+            var x = document.createElement("div");
+            x.className = "delete_li1";
+            x.innerText = "×";
+            x.contentEditable = false;
+            x.addEventListener('click', function () {
+              $(this).parent().remove();
+            });
+            $(".event_box ul li").eq(i).append(x);
+          }
+          }
+          else if(text=="key_word"){
+          $("#edit_box5 .edit_1").css("display", "inline-block");
+          $("#edit_box5 .caned").css("display", "none");
+          $("#keyword").hide();
+          $(".keyword_edit").show();
+          $(".keyword_edit ul").html("");
+          for(var i=0;i<this.EventKeyword.length;i++){
+            $(".keyword_edit ul").append("<li><input type=\"text\" placeholder=\"情绪名字\" value" +
+              "='"+this.EventKeyword[i].keywordName+"'><b>-</b><input value='"+this.EventKeyword[i].keywordValue+"' type=\"" +
+              "number\" placeholder=\"占比值\"/></li>");
+            var x = document.createElement("div");
+            x.className = "delete_li3";
+            x.innerText = "×";
+            x.contentEditable = false;
+            x.addEventListener('click', function () {
+              $(this).parent().remove();
+            });
+            $(".keyword_edit ul li").last().append(x);
+          }
+          }
+          else if(text=="emotions_percent"){
+          $("#edit_box4 .edit_1").css("display", "inline-block");
+          $("#edit_box4 .caned").css("display", "none");
+          $("#emotion_pie").hide();
+          $(".emotions_edit").show();
+          $(".emotions_edit ul").html("");
+          for(var i=0;i<this.EmotionStatistics.length;i++){
+            $(".emotions_edit ul").append("<li><input type=\"text\" placeholder=\"情绪名字\" value" +
+              "='"+this.EmotionStatistics[i].emotionName+"'><b>-</b><input value='"+this.EmotionStatistics[i].emotionValue+"' type=\"" +
+              "number\" placeholder=\"占比值\"/></li>");
+            var x = document.createElement("div");
+            x.className = "delete_li3";
+            x.innerText = "×";
+            x.contentEditable = false;
+            x.addEventListener('click', function () {
+              $(this).parent().remove();
+            });
+            $(".emotions_edit ul li").last().append(x);
+          }
+          }
+          else if(text=='news_percent'){
+            $("#edit_box3 .edit_1").css("display", "inline-block");
+            $("#edit_box3 .caned").css("display", "none");
+            $("#news_pie").hide();
+            $(".news_edit").show();
+          $(".news_edit ul").html("");
+          for(var i=0;i<this.NewsStatistics.length;i++){
+            $(".news_edit ul").append("<li><input type=\"text\" placeholder=\"新闻名字\" value" +
+              "='"+this.NewsStatistics[i].newsName+"'><b>-</b><input value='"+this.NewsStatistics[i].newsValue+"' type=\"" +
+              "number\" placeholder=\"占比值\"/></li>");
+            var x = document.createElement("div");
+            x.className = "delete_li3";
+            x.innerText = "×";
+            x.contentEditable = false;
+            x.addEventListener('click', function () {
+              $(this).parent().remove();
+            });
+            $(".news_edit ul li").last().append(x);
+          }
+          }
+          else if(text=="hot_trend"){
+            this.old_text = this.EmotionTrend;
+            $("#edit_box2 .edit_1").css("display", "inline-block");
+            $("#edit_box2 .caned").css("display", "none");
+            $("#trend_chart").hide();
+            $(".hot_trend_edit").show();
+            $(".hot_trend_edit ul").html("");
+            for(var i=0;i<this.EmotionTrend.length;i++){
+              $(".hot_trend_edit ul").append("<li><input type=\"text\" placeholder=\"日期\" value" +
+                "='"+this.EmotionTrend[i].xData+"'><b>-</b><input value='"+this.EmotionTrend[i].yData+"' type=\"" +
+                "number\" placeholder=\"y值\"/></li>");
+                var x = document.createElement("div");
+                x.className = "delete_li3";
+                x.innerText = "×";
+                x.contentEditable = false;
+                x.addEventListener('click', function () {
+                  $(this).parent().remove();
+                });
+              $(".hot_trend_edit ul li").last().append(x);
+            }
+
+          }
+          else if(text=='position_detection'){
+            this.old_text = $(".comment_box").html();
+            for(var i =0;i<$(".comment_position").length;i++){
+              $(".comment_position").eq(i).find("span").attr("contentEditable", true);
+              var x = document.createElement("div");
+              x.className = "delete_li4";
+              x.innerText = "×";
+              x.contentEditable = false;
+              x.addEventListener('click', function () {
+                $(this).parent().parent().remove();
+              });
+              $(".comment_position").eq(i).append(x)
+            }
+            $(".percent_info").attr("contentEditable", true);
+            $(".comment_box .edit_1").css("display", "inline-block");
+            $("#edit_box1 .edit_1").css("display", "inline-block");
+            $("#edit_box1 .caned").css("display", "none");
+            for (var i = 0; i < $(".li").length; i++) {
+              for(var j=0;j<$(".li").eq(i).find("ul li").length;j++){
+                var x = document.createElement("div");
+                x.className = "delete_li2";
+                x.innerText = "×";
+                x.contentEditable = false;
+                x.addEventListener('click', function () {
+                  $(this).parent().remove();
+                });
+                $(".li").eq(i).find("ul li").eq(j).append(x);
+                $(".li").eq(i).find("ul li").find("span").attr("contentEditable", true);
+              }
+              }
+
+         }
+         else{
+            this.old_text = $("." + text + " .ca_box ul").html();
+            $("." + text + " .ca_box ul li").attr("contentEditable", true);
+            $("." + text + " .edit").css("display", "inline-block");
+            $("." + text + " .caned").css("display", "none");
+            for (var i = 0; i < $("." + text + " .ca_box ul li").length; i++) {
+              var x = document.createElement("div");
+              x.className = "delete_li";
+              x.innerText = "×";
+              x.contentEditable = false;
+              x.addEventListener('click', function () {
+                $(this).parent().remove();
+              })
+              $("." + text + " .ca_box ul li").eq(i).append(x);
+            }
+
+          }
+        },
+      //取消编辑模式
+      canceledit(text){
+        if(text=='event_box') {
+          $(".event_chain").css('position',"relative");
+          $('.no_drag_cs').DDSort({
+            target: ''           //示例而用，默认即'li'
+          });
+          $(".line").show();
+          $(".event_box").css("overflow","auto");
+          $(".event_box").css("max-height","314px");
+          $(".event_box ul li").attr("contentEditable", false);
+          $("#edit_box .edit_1").css("display","none");
+          $("#edit_box .caned").css("display","inline-block");
+          $(".event_box ul").html(this.old_text);
+        }
+        else if(text=="key_word"){
+          $(".keyword_edit ul").html("");
+          $("#edit_box5 .edit_1").css("display", "none");
+          $("#edit_box5 .caned").css("display", "inline-block");
+          $("#keyword").show();
+          $(".keyword_edit").hide();
+        }
+        else if(text=="emotions_percent"){
+          $(".emotions_edit ul").html("");
+          $("#edit_box4 .edit_1").css("display", "none");
+          $("#edit_box4 .caned").css("display", "inline-block");
+          $("#keyword").show();
+          $(".emotions_edit").hide();
+        }
+        else if(text=='news_percent'){
+          $(".news_edit ul").html("");
+          $("#edit_box3 .edit_1").css("display", "none");
+          $("#edit_box3 .caned").css("display", "inline-block");
+          $("#news_pie").show();
+          $(".news_edit").hide();
+        }
+        else if(text=='hot_trend'){
+          $(".hot_trend_edit ul").html("");
+          $("#edit_box2 .edit_1").css("display", "none");
+          $("#edit_box2 .caned").css("display", "inline-block");
+          $("#trend_chart").show();
+          $(".hot_trend_edit").hide();
+        }
+        else if(text=='position_detection'){
+          $(".comment_box").html(this.old_text);
+          for(var i =0;i<$(".comment_position").length;i++){
+            $(".comment_position").eq(i).find("span").attr("contentEditable", false);
+            $(".comment_position").eq(i).find(".delete_li4").remove();
+          }
+          $(".percent_info").attr("contentEditable", false);
+          $(".comment_box .edit_1").css("display", "none");
+          $("#edit_box1 .edit_1").css("display", "none");
+          $("#edit_box1 .caned").css("display", "inline-block");
+          this.rotation();
+        }
+        else{
+          $("."+text+" .ca_box ul li").attr("contentEditable", false);
+          $("."+text+" .edit").css("display","none");
+          $("."+text+" .caned").css("display","inline-block");
+          $("."+text+" .ca_box ul").html(this.old_text);
+        }
+      },
+      //保存编辑
+      storeedit(text){
+        if(text=='event_box'){
+          // $(".line").show();
+          // $(".event_box").css("overflow","auto");
+          // $(".event_box").css("max-height","314px");
+          // $(".event_box ul li span").attr("contentEditable", false);
+          // $("#edit_box .edit_1").css("display","none");
+          // $("#edit_box .caned").css("display","inline-block");
+          // for(var i=0;i<$(".event_box ul li").length;i++){
+          //   $(".event_box ul li").eq(i).find("div").remove();
+          // }
+
+          // $(".line").html("<div class=\"circle\"></div>");
+          // for(var i=0;i<$("#event_box").height()/50-2;i++){
+          //   $(".line").prepend("<div class=\"line_box\">\n" +
+          //     "<div class=\"circle\"></div>\n" +
+          //     "<div class=\"rectangle\"></div>\n" +
+          //     "</div>")
+          // }
+          var data=[];
+          var temp={}
+          for(var i=0;i<$(".event_box ul li").length;i++){
+            temp = {event_date:$(".event_box ul li").eq(i).find(".event_date").text(),event_content:$(".event_box ul li").eq(i).find(".event_content").text()}
+            data.push(temp);
+          }
+          data = {Development:data};
+          console.log(data);
+          this.$http.post('',data).then((res)=>{
+            res = res.body;
+            console.log(res);
+            if(res.code == 1){
+              alert("修改成功!")
+              this.$router.go(0);
+            }else{
+              alert("修改失败!")
+            }
+          }).catch(error => {
+            alert("修改失败!")
+          });
+        }
+        else if(text=="key_word"){
+          for(var i=0;i<$(".keyword_edit ul li").length;i++) {
+            if ($(".keyword_edit ul li").eq(i).find("input").eq(0).val() == "" || $(".keyword_edit ul li").eq(i).find("input").eq(1).val() == "") {
+              alert("输入不能为空");
+              return;
+            }
+          }
+          this.EventKeyword =[];
+          var temp ={};
+          for(var i=0;i<$(".keyword_edit ul li").length;i++) {
+            temp = {keywordName:$(".keyword_edit ul li").eq(i).find("input").eq(0).val(),keywordValue:$(".keyword_edit ul li").eq(i).find("input").eq(1).val()};
+            this.EventKeyword.push(temp);
+          }
+          // this.keyword_charts();
+          // $("#edit_box5 .edit_1").css("display", "none");
+          // $("#edit_box5 .caned").css("display", "inline-block");
+          // $("#keyword").show();
+          // $(".keyword_edit").hide();
+
+          var data = {EventKeyword:this.EventKeyword};
+          console.log(data);
+          this.$http.post('',data).then((res)=>{
+            res = res.body;
+            console.log(res);
+            if(res.code == 1){
+              alert("修改成功!")
+              this.$router.go(0);
+            }else{
+              alert("修改失败!")
+            }
+          }).catch(error => {
+            alert("修改失败!")
+          });
+        }
+        else if(text=="emotions_percent"){
+          for(var i=0;i<$(".emotions_edit ul li").length;i++) {
+            if ($(".emotions_edit ul li").eq(i).find("input").eq(0).val() == "" || $(".emotions_edit ul li").eq(i).find("input").eq(1).val() == "") {
+              alert("输入不能为空");
+              return;
+            }
+          }
+          this.EmotionStatistics =[];
+          var temp ={};
+          for(var i=0;i<$(".emotions_edit ul li").length;i++) {
+            temp = {emotionName:$(".emotions_edit ul li").eq(i).find("input").eq(0).val(),emotionValue:$(".emotions_edit ul li").eq(i).find("input").eq(1).val()};
+            this.EmotionStatistics.push(temp);
+          }
+          // this.emotion_charts();
+          // $("#edit_box4 .edit_1").css("display", "none");
+          // $("#edit_box4 .caned").css("display", "inline-block");
+          // $("#emotion_pie").show();
+          // $(".emotions_edit").hide();
+
+          var data = {EmotionStatistics:this.EmotionStatistics};
+          console.log(data);
+          this.$http.post('',data).then((res)=>{
+            res = res.body;
+            console.log(res);
+            if(res.code == 1){
+              alert("修改成功!")
+              this.$router.go(0);
+            }else{
+              alert("修改失败!")
+            }
+          }).catch(error => {
+            alert("修改失败!")
+          });
+        }
+        else if(text=='news_percent'){
+          for(var i=0;i<$(".news_edit ul li").length;i++) {
+            if ($(".news_edit ul li").eq(i).find("input").eq(0).val() == "" || $(".news_edit ul li").eq(i).find("input").eq(1).val() == "") {
+              alert("输入不能为空");
+              return;
+            }
+          }
+          this.NewsStatistics =[];
+          var temp ={};
+          for(var i=0;i<$(".news_edit ul li").length;i++) {
+            temp = {newsName:$(".news_edit ul li").eq(i).find("input").eq(0).val(),newsValue:$(".news_edit ul li").eq(i).find("input").eq(1).val()};
+            this.NewsStatistics.push(temp);
+          }
+          // this.news_charts();
+          // $("#edit_box3 .edit_1").css("display", "none");
+          // $("#edit_box3 .caned").css("display", "inline-block");
+          // $("#news_pie").show();
+          // $(".news_edit").hide();
+
+          var data = {NewsStatistics:this.NewsStatistics};
+          console.log(data);
+          this.$http.post('',data).then((res)=>{
+            res = res.body;
+            console.log(res);
+            if(res.code == 1){
+              alert("修改成功!")
+              this.$router.go(0);
+            }else{
+              alert("修改失败!")
+            }
+          }).catch(error => {
+            alert("修改失败!")
+          });
+        }
+        else if(text=='hot_trend'){
+          // temp = {value:this.NewsStatistics[i].newsValue,name:this.NewsStatistics[i].newsName};
+          for(var i=0;i<$(".hot_trend ul li").length;i++) {
+            if ($(".hot_trend ul li").eq(i).find("input").eq(0).val() == "" || $(".hot_trend ul li").eq(i).find("input").eq(1).val() == "") {
+              alert("输入不能为空");
+              return;
+            }
+          }
+          this.EmotionTrend =[];
+          var temp ={};
+          for(var i=0;i<$(".hot_trend ul li").length;i++) {
+            temp = {xData:$(".hot_trend ul li").eq(i).find("input").eq(0).val(),yData:$(".hot_trend ul li").eq(i).find("input").eq(1).val()};
+            this.EmotionTrend.push(temp);
+          }
+          // this.trend_charts();
+          // $("#edit_box2 .edit_1").css("display", "none");
+          // $("#edit_box2 .caned").css("display", "inline-block");
+          // $("#trend_chart").show();
+          // $(".hot_trend_edit").hide();
+
+          var data = {EmotionTrend:this.EmotionTrend};
+          console.log(data);
+          this.$http.post('',data).then((res)=>{
+            res = res.body;
+            console.log(res);
+            if(res.code == 1){
+              alert("修改成功!")
+              this.$router.go(0);
+            }else{
+              alert("修改失败!")
+            }
+          }).catch(error => {
+            alert("修改失败!")
+          });
+        }
+        else if(text=='position_detection'){
+          for(var i=0;i<$(".c_box").length;i++){
+            if(Number($(".c_box").eq(i).find("ul .li1 .percent_info").text())+Number($(".c_box").eq(i).find("ul .li2 .percent_info").text())!=100
+              ||$(".c_box").eq(i).find(".comment_position span").text()==""
+              ||$(".c_box").eq(i).find(".li ul li span").text()==""){
+              alert("你的输入有误")
+              return;
+            }
+          }
+          // for(var i =0;i<$(".comment_position").length;i++){
+          //   $(".comment_position").eq(i).find("span").attr("contentEditable", false);
+          // }
+          // $(".percent_info").attr("contentEditable", false);
+          // $(".comment_box .edit_1").css("display", "none");
+          // $("#edit_box1 .edit_1").css("display", "none");
+          // $("#edit_box1 .caned").css("display", "inline-block");
+          //
+          //
+          // for (var i = 0; i < $(".li").length; i++) {
+          //   for(var j=0;j<$(".li").eq(i).find("ul li").length;j++){
+          //     $(".li").eq(i).find("ul li").find("div").remove();
+          //     $(".li").eq(i).find("ul li").find("span").attr("contentEditable", false);
+          //   }
+          // }
+          var temp ={};
+          var data = [];
+          for (var i = 0; i < $(".comment_box .c_box").length; i++) {
+            var op_cm = [];
+            var fa_cm = [];
+            for(var j=0;j<$(".comment_box .c_box").eq(i).find(".li1 ul li").length;j++){
+              fa_cm.push($(".comment_box .c_box").eq(i).find(".li1 ul li").eq(j).find("span").text())
+            }
+            for(var k=0;k<$(".comment_box .c_box").eq(i).find(".li2 ul li").length;k++){
+              op_cm.push($(".comment_box .c_box").eq(i).find(".li2 ul li").eq(k).find("span").text())
+            }
+            temp = {obj:$(".comment_box .c_box").eq(i).find(".comment_position span").text(),
+              opposition:$(".comment_box .c_box").eq(i).find(".li2 .percent_info").text(),
+              favor:$(".comment_box .c_box").eq(i).find(".li1 .percent_info").text(),
+              opposition_comment:op_cm,favor_comment:fa_cm}
+            data.push(temp);
+          }
+          data = {ObjStatistics:data};
+          this.$http.post('',data).then((res)=>{
+            res = res.body;
+            console.log(res);
+            if(res.code == 1){
+              alert("修改成功!")
+              this.$router.go(0);
+            }else{
+              alert("修改失败!")
+            }
+          }).catch(error => {
+            alert("修改失败!")
+          });
+        }
+        else{
+          // $("."+text+" .ca_box ul li").attr("contentEditable", false);
+          // $("."+text+" .edit").css("display","none");
+          // $("."+text+" .caned").css("display","inline-block");
+          // for(var i=0;i<$("."+text+" .ca_box ul li").length;i++){
+          //   $("."+text+" .ca_box ul li").eq(i).find("div").remove();
+          // }
+          if(text=='event_catelogy'){
+            var temp = [];
+            for(var i=0;i<$(".event_catelogy .ca_box ul li").length;i++){
+              temp.push($(".event_catelogy .ca_box ul li").eq(i).find("span").text());
+            }
+            var data = {event_catelogy:temp};
+            console.log(data)
+            this.$http.post('',data).then((res)=>{
+              res = res.body;
+              console.log(res);
+              if(res.code == 1){
+                alert("修改成功!")
+                this.$router.go(0);
+              }else{
+                alert("修改失败!")
+              }
+            }).catch(error => {
+              alert("修改失败!")
+            });
+          }else if(text=='topic'){
+            var temp = [];
+            for(var i=0;i<$(".topic .ca_box ul li").length;i++){
+              temp.push($(".topic .ca_box ul li").eq(i).find("span").text());
+            }
+            var data = {topic:temp};
+            console.log(data)
+            this.$http.post('',data).then((res)=>{
+              res = res.body;
+              console.log(res);
+              if(res.code == 1){
+                alert("修改成功!")
+                this.$router.go(0);
+              }else{
+                alert("修改失败!")
+              }
+            }).catch(error => {
+              alert("修改失败!")
+            });
+          }
+        }
+      },
+      //添加内容
+      addedit(text){
+        this.$nextTick(()=>{
+          if(text=='event_box'){
+            var x = document.createElement("div");
+            x.className = "delete_li1";
+            x.innerText = "×";
+            x.contentEditable = false;
+            // x.style.cssText = "position:absolute;top:0;left:5px;color:#fb7c45;cursor:pointer;";
+            x.addEventListener('click', function () {
+              $(this).parent().remove();
+            })
+            var y1 = document.createElement("span");
+            y1.contentEditable = true;
+            y1.className = "event_date";
+            // y1.style.cssText="display: inline-block;\n" +
+            //   "    line-height: 50px;\n" +
+            //   "    text-overflow: ellipsis;\n" +
+            //   "    overflow: hidden;\n" +
+            //   "    white-space: nowrap;\n" +
+            //   "    font-size: 14px;width: 202px;\n" +
+            //   "    height: 50px;\n" +
+            //   "    padding-left: 40px;\n" +
+            //   "    color: #585858;";
+            // y1.required = true;
+            var y2 = document.createElement("span");
+            y2.contentEditable = true;
+            y2.className = "event_content";
+            y2.style.cssText = "padding-left:5px;";
+            var v = document.createElement("li");
+            v.contentEditable = false;
+            // v.style.cssText="width: 1022px;\n" +
+            //   "    height: 50px;\n" +
+            //   "    border: 1px solid #E6E6E6;\n" +
+            //   "    position: relative;";
+            v.appendChild(y1);
+            v.appendChild(y2);
+            v.appendChild(x);
+            $(".event_box ul .no_drag_cs").append(v);
+            $(".event_box ul .no_drag_cs li").last().find("span").eq(0).focus();
+          }
+          else if(text=="key_word"){
+            $(".keyword_edit ul").append("<li><input type=\"text\" placeholder=\"关键词\" required><b>-</b><input required type=\"" +
+              "number\" placeholder=\"占比值\"/></li>");
+            var x = document.createElement("div");
+            x.className = "delete_li3";
+            x.innerText = "×";
+            x.contentEditable = false;
+            x.addEventListener('click', function () {
+              $(this).parent().remove();
+            });
+            $(".keyword_edit ul li").last().append(x);
+          }
+          else if(text=="emotions_percent"){
+            if($(".emotions_edit ul li").length>7){
+              alert("最多只能添加八个元素")
+              return;
+            }
+            $(".emotions_edit ul").append("<li><input type=\"text\" placeholder=\"情绪名字\" required><b>-</b><input required type=\"" +
+              "number\" placeholder=\"占比值\"/></li>");
+            var x = document.createElement("div");
+            x.className = "delete_li3";
+            x.innerText = "×";
+            x.contentEditable = false;
+            x.addEventListener('click', function () {
+              $(this).parent().remove();
+            });
+            $(".emotions_edit ul li").last().append(x);
+          }
+          else if(text=='news_percent'){
+            if($(".news_edit ul li").length>7){
+              alert("最多只能添加八个元素")
+              return;
+            }
+            $(".news_edit ul").append("<li><input type=\"text\" placeholder=\"新闻名字\" required><b>-</b><input required type=\"" +
+              "number\" placeholder=\"占比值\"/></li>");
+            var x = document.createElement("div");
+            x.className = "delete_li3";
+            x.innerText = "×";
+            x.contentEditable = false;
+            x.addEventListener('click', function () {
+              $(this).parent().remove();
+            });
+            $(".news_edit ul li").last().append(x);
+          }
+          else if(text=='hot_trend'){
+            $(".hot_trend_edit ul").append("<li><input type=\"text\" placeholder=\"日期\" required><b>-</b><input required type=\"" +
+              "number\" placeholder=\"y值\"/></li>");
+            var x = document.createElement("div");
+            x.className = "delete_li3";
+            x.innerText = "×";
+            x.contentEditable = false;
+            x.addEventListener('click', function () {
+              $(this).parent().remove();
+            });
+            $(".hot_trend_edit ul li").last().append(x);
+          }
+          else if(text=='position_detection'){
+            $(".comment_box").append("            <div class=\"c_box\">\n" +
+              "              <div class=\"comment_position\">\n" +
+              "                <div class=\"favor_line\"></div>\n" +
+              "                <span contenteditable='true'></span>\n" +
+              "                <div class=\"opposition_line\"></div>\n" +
+              "              </div>\n" +
+              "              <ul class=\"change_box smoothchange1\" style=\"margin-left: 0px;\">\n" +
+              "                <li class=\"li1 li\">\n" +
+              "                  <div class=\"obj_comment\">\n" +
+              "                    <div class=\"circle2\"></div>\n" +
+              "                    <span>支持评论</span>\n" +
+              "                    <span>占比<span class=\"percent_info\" contenteditable='true'>40</span>%</span>\n" +
+              "                  </div>\n" +
+              "                  <ul>\n" +
+              "                  </ul>\n" +
+              "                  <div class=\"add edit_1\">新增</div>\n" +
+              "                </li>\n" +
+              "                <li class=\"li2 li\">\n" +
+              "                  <div class=\"obj_comment\">\n" +
+              "                    <div class=\"circle3\"></div>\n" +
+              "                    <span>反对评论</span>\n" +
+              "                    <span>占比<span class=\"percent_info\" contenteditable='true'>60</span>%</span>\n" +
+              "                  </div>\n" +
+              "                  <ul>\n" +
+              "                  </ul>\n" +
+              "                  <div class=\"add edit_1\">新增</div>\n" +
+              "                </li>\n" +
+              "              </ul>\n" +
+              "            </div>")
+            $(".c_box .add").css("display","inline-block");
+            var x = document.createElement("div");
+            x.className = "delete_li4";
+            x.innerText = "×";
+            x.contentEditable = false;
+            x.addEventListener('click', function () {
+              $(this).parent().parent().remove();
+            });
+            $(".comment_position").last().append(x)
+
+            $(".opposition_line").last().width(Number($(".c_box").last().find(".li2 .percent_info").text())/100*(944-$(".comment_position").last().find("span").width()));
+            $(".favor_line").last().width(Number($(".c_box").last().find(".li1 .percent_info").text())/100*(944-$(".comment_position").last().find("span").width()));
+
+            var x = $(".c_box").length;
+            $(".comment_position").last().find("span").on('keyup',function () {
+                $(this).parent().parent().find(".opposition_line").width(Number($(this).parent().parent().find(".li2 .percent_info").text())/100*(944-$(this).width()));
+                $(this).parent().parent().find(".favor_line").width(Number($(this).parent().parent().find(".li1 .percent_info").text())/100*(944-$(this).width()));
+            })
+            $(".c_box").last().find(".li1 .add").on('click',function () {
+              var x = document.createElement("div");
+              x.className = "delete_li2";
+              x.innerText = "×";
+              x.contentEditable = false;
+              x.addEventListener('click', function () {
+                $(this).parent().remove();
+              });
+              var y = document.createElement("span");
+              y.contentEditable = true;
+              var z = document.createElement("li");
+              z.contentEditable = false;
+              z.appendChild(y);
+              z.appendChild(x);
+              $(this).parent().find("ul").append(z)
+            })
+
+            $(".c_box").last().find(".li2 .add").on('click',function () {
+              var x = document.createElement("div");
+              x.className = "delete_li2";
+              x.innerText = "×";
+              x.contentEditable = false;
+              x.addEventListener('click', function () {
+                $(this).parent().remove();
+              });
+              var y = document.createElement("span");
+              y.contentEditable = true;
+              var z = document.createElement("li");
+              z.contentEditable = false;
+              z.appendChild(y);
+              z.appendChild(x);
+              $(this).parent().find("ul").append(z)
+            })
+            this.rotation()
+          }
+          else{
+            if($("."+text+" .ca_box ul li").length>3){
+              alert("最多只能添加4项");
+              return;
+            }
+            var x =  document.createElement("div");
+            x.className = "delete_li";
+            x.innerText = "×";
+            // x.style.cssText = "position:absolute;top:-10px;left:20px;color:#fb7c45;cursor:pointer;";
+            x.addEventListener('click', function () {
+              $(this).parent().remove();
+            })
+            var y = document.createElement("span");
+            y.contentEditable = true;
+            y.style.cssText = "display:inline-block;min-width:10px;";
+            var v = document.createElement("li");
+            v.style.cssText = "    float: left;\n" +
+              "    padding-left:40px;\n" +
+              "    padding-right: 40px;\n" +
+              "    text-align: center;\n" +
+              "    margin-top: 15px;\n" +
+              "    font-size: 14px;\n" +
+              "    color: #858585;\n" +
+              "    border-left: 1px solid #979797;\n" +
+              "    position: relative;outline: none;";
+            v.appendChild(y);
+            v.appendChild(x);
+            $("."+text+" .ca_box ul").append(v);
+            $("."+text+" .ca_box ul li").last().find("span").focus();
+          }
+        })
+
+       },
       rotation(){
         //反对评论与支持评论轮换
         var coment_position = document.getElementsByClassName("comment_position");
@@ -498,7 +1337,7 @@
             show: true
           },
           series: [{
-            name: 'Google Trends',
+            // name: 'Google Trends',
             type: 'wordCloud',
             size: ['80%', '80%'],
             textRotation : [0, 45, 90, -45],
@@ -614,7 +1453,6 @@
           ]
         };
         key_word.setOption(key_option);
-
         //获取关键词信息
         var key_temp = {};
         var key_data = [];
@@ -634,6 +1472,7 @@
     },
     created(){
       this.input =this.$route.query.eid;
+      $("*").attr("spellCheck",false);
     },
     watch:{
       'input'(){
@@ -644,7 +1483,7 @@
       'Development'(){
         //蓝条长度获取
         this.$nextTick(() =>{
-          this.blueline = $("#event_box").height()/50-2;
+          // this.blueline = $("#event_box").height()/50-2;
           for(var i=0;i<$("#event_box").height()/50-2;i++){
             $(".line").prepend("<div class=\"line_box\">\n" +
               "<div class=\"circle\"></div>\n" +
@@ -664,6 +1503,9 @@
       }
     },
     mounted(){
+      if(sessionStorage.getItem("username")){
+        $(".admin_edit").show();
+      }
       this.$http.get(projectUrl+'/typeAndTopic?eid='+this.input+"&pid=1").then((response) => {
         response = response.data;
         console.log(response);
@@ -703,14 +1545,51 @@
         this.EventKeyword = response;
         this.keyword_charts()
       })
-    },
-    activated(){
-
     }
   }
 </script>
 
-<style scoped>
+<style>
+  /*删除按钮*/
+  .news .admin_edit{
+    display: none;
+  }
+  .news .delete_li{
+    position:absolute;
+    top:-10px;
+    left:20px;
+    color:#fb7c45;
+    cursor:pointer;
+  }
+  .news .delete_li1{
+    position:absolute;
+    top:0;
+    left:5px;
+    color:#fb7c45;
+    cursor:pointer;
+  }
+  .news .delete_li2{
+       position:absolute;
+       top:-17px;
+       left:2px;
+       color:#fb7c45;
+       cursor:pointer;
+     }
+  .news .delete_li3{
+    color:#fb7c45;
+    cursor:pointer;
+    display: inline-block;
+    margin-left: 2px;
+    font-size: 20px;
+  }
+  .news .delete_li4{
+    position:absolute;
+    top:0;
+    left:-10px;
+    color:#fb7c45;
+    cursor:pointer;
+  }
+  /*删除按钮*/
   /*主体部分*/
   /*事件信息*/
   #wrapper {
@@ -749,10 +1628,32 @@
     font-size: 14px;
     color: #858585;
     border-left: 1px solid #979797;
+    position: relative;
   }
   .ca_box ul li:first-of-type{
     border-left: 0;
   }
+  .news .edit{
+    width: 50px;
+    height: 30px;
+    float: right;
+    line-height: 30px;
+    border-radius: 3px;
+    border: 1px solid #676972;
+    text-align: center;
+    margin-top: 10px;
+    font-size: 14px;
+    cursor: pointer;
+    margin-right: 8px;
+  }
+  .news .edit:hover{
+    background:  #FB7C45;
+    color:#fff;
+  }
+  .news .store,.news .add,.news .cancel{
+    display: none;
+  }
+
   /*事件类型*/
 
   /*话题链*/
@@ -787,6 +1688,7 @@
     font-size: 14px;
     color: #858585;
     border-left: 1px solid #979797;
+    outline:none;
   }
   .ca_box ul li:first-of-type{
     border-left: 0;
@@ -833,6 +1735,7 @@
     position: absolute;
     top:64px;
     left: 180px;
+    z-index: 1000;
   }
   .rectangle{
     width: 2px;
@@ -862,6 +1765,7 @@
     width: 1022px;
     height: 50px;
     border: 1px solid #E6E6E6;
+    position: relative;
   }
   .event_chain ul li:nth-child(even){
     background: #F5F5F5;
@@ -886,6 +1790,39 @@
   .event_content{
     color:#858585;
     max-width: 720px;
+    margin-left:5px;
+    min-width: 100px;
+  }
+  .news .edit_box,.news .edit_box1{
+   width: 100%;
+   height: 30px;
+   text-align: center;
+  }
+  .news .edit_box .edit_1,.news .edit_box1 .edit_1,.news .comment_box .edit_1{
+    width: 50px;
+    height: 30px;
+    line-height: 30px;
+    border-radius: 3px;
+    border: 1px solid #676972;
+    text-align: center;
+    font-size: 14px;
+    cursor: pointer;
+    margin: 10px auto;
+  }
+  .edit_box .edit_1:hover,.edit_box1 .edit_1:hover,.comment_box .edit_1:hover{
+    background:  #FB7C45;
+    color:#fff;
+  }
+  .news #edit_box3,.news #edit_box4{
+    display: inline-block;
+    width: 502px;
+  }
+  .news #edit_box3{
+    float: left;
+  }
+  .news #edit_box4{
+    margin-left: 20px;
+    float: left;
   }
   /*事件链*/
   /*立场检测*/
@@ -965,6 +1902,7 @@
     width: 100%;
     clear: both;
     padding-top: 20px;
+    position: relative;
   }
   .favor_line{
     float: left;
@@ -1031,12 +1969,16 @@
   .obj_comment span:nth-of-type(2){
     padding-left: 15px;
   }
+  .li{
+    width: 984px;
+  }
   .li ul{
     padding-top: 10px;
     clear: both;
   }
   .li ul li{
     width: 940px;
+    height: 50px;
     line-height: 50px;
     border: 1px solid #E6E6E6;
     padding-left: 21px;
@@ -1044,6 +1986,11 @@
     text-overflow:ellipsis;
     overflow:hidden;
     white-space: nowrap;
+    position: relative;
+  }
+  .li ul li span{
+    min-width: 100px;
+    display: inline-block;
   }
   .li ul li:nth-child(even){
     background: #ffffff;
@@ -1056,7 +2003,7 @@
   /*热度走势*/
   .hot_trend{
     width: 1024px;
-    height: 460px;
+    min-height: 460px;
     margin-top: 20px;
     background: #fff;
     box-shadow: 0 4px 4px 0 rgba(224,224,224,0.50);
@@ -1065,13 +2012,24 @@
     width: 100%;
     height: 420px;
   }
+  /*热度走势可编辑*/
+  .trend_title{
+    padding: 8px;
+  }
+  .trend_title span:nth-of-type(2){
+    margin-left: 145px;
+  }
+  .hot_trend_edit ul li{
+    padding: 8px;
+    display: inline-block;
+  }
   /*热度走势*/
 
   /*占比图表*/
   .percent_chart{
     width: 100%;
     margin-top: 20px;
-    height: 420px;
+    min-height: 420px;
     background: transparent;
   }
   .l-box{
@@ -1092,19 +2050,43 @@
     width: 100%;
     height: 380px;
   }
+  /*新闻占比可编辑*/
+
+  .news_title{
+    padding: 8px;
+  }
+  .news_title span:nth-of-type(2){
+    margin-left: 100px;
+  }
+  .keyword_edit ul{
+    width: 100%;
+    min-height:300px ;
+  }
+  .keyword_edit ul li{
+    display: inline-block;
+    width: 400px;
+    padding-left: 8px;
+  }
   /*占比图表*/
 
   /*关键词云*/
   .key_word{
     margin-top: 20px;
     width: 100%;
-    height: 340px;
+    min-height: 340px;
     background: #fff;
     box-shadow: 0 4px 4px 0 rgba(224,224,224,0.50);
   }
   #keyword{
     width: 100%;
     height: 300px;
+  }
+  /*关键词编辑*/
+  .trend_title{
+    padding: 8px;
+  }
+  .trend_title span:nth-of-type(2){
+    margin-left: 145px;
   }
   /*关键词云*/
   /*主体部分*/

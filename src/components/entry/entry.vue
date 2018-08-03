@@ -133,11 +133,11 @@
         }
       },
       mounted(){
-        this.$http.get().then((response) => {
+        this.$http.get('http://120.79.211.191:8080/University/school/schoolOrder').then((response) => {
           response = response.data;
           this.schoolOrder = response;
         });
-        this.$http.get().then((response) => {
+        this.$http.get('http://120.79.211.191:8080/University/event/index').then((response) => {
           response = response.data;
           this.event = response;
         })

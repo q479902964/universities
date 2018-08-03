@@ -18,10 +18,12 @@
     "jquery.dotdotdot": "^3.2.2",
     "less": "^3.0.1",
     "less-loader": "^4.1.0",
+    "sortablejs": "^1.7.0",
     "vue": "^2.5.2",
     "vue-axios": "^2.1.1",
     "vue-resource": "^1.5.0",
-    "vue-router": "^3.0.1"
+    "vue-router": "^3.0.1",
+    "vuedraggable": "^2.16.0"
   },
   "devDependencies": {
     "autoprefixer": "^7.1.2",
