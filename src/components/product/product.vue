@@ -3,13 +3,15 @@
       <div id="wrapper">
         <transition name="fade">
           <div class="wrp_box" v-show="flag">
-
             <div class="introduce">
               <div class="content">
                 <h1>系统简介</h1>
                 <p>本系统以高校与高校事件为研究对象，依托互联网信息采集技术对新闻网站、微博、知乎、贴吧、微信公众号等平台对学校评价与事件内容及其评论进行监测，利用数据挖掘与自然语言处理技术，监测校内群体教师和学生对于高校事件、热点问题的讨论，实现对高校事件的检测、评估、聚合与跟踪，对事件内容与性质进行多维细粒度刻画，分析事件关注度与监控事件传播，分析媒体观点与舆论，有助于高校管理者对热点事件进行积极引导，避免酿成突发事件；并监测公共网络对学校口碑的评论，如学校形象、教学质量、学校招生、招聘等问题的舆情，并对评论进行观点抽取与情感倾向判断，挖掘高校网络的意见领袖，并实现基于高校事件与高校的舆情分析可视化系统，为高校管理者提供参考数据、分析意见以及舆情的发展形势，便于高校管理者对高校事件及时做出合理的决策，了解教师与学生群体对学校评价与建议，增强学校管理者、教师与学生之间的相互交流。</p>
               </div>
               <div class="bg2_box"></div>
+              <transition name="move" >
+                <img class="int" src="./int.png" v-show="flag">
+              </transition>
             </div>
             <div class="innovate">
               <div class="left-box">
@@ -54,9 +56,6 @@
               </div>
             </div>
           </div>
-        </transition>
-        <transition name="move" >
-          <img class="int" src="./int.png" v-show="flag">
         </transition>
       </div>
     </div>
@@ -105,20 +104,28 @@
     height: 549px;
     position: absolute;
     right: 90px;
-    top: 4px;
+    top: -40px;
     z-index: 1;
+  }
+  @media screen and (min-width: 1180px){
+    .int{
+      top: -40px;
+    }
   }
   @media screen and (min-width: 1440px){
     .int{
       width: 365px;
+      top: -73px;
     }
   }
   .wrp_box .introduce{
     position: relative;
     width:100%;
-    height: 500px;
-    overflow hidden;
+    min-height: 500px;
+    /*overflow hidden;*/
     background:url("./bg.png");
+    background-repeat no-repeat;
+    background-size cover;
   }
   @media screen and (min-width: 1440px){
     .wrp_box .introduce{

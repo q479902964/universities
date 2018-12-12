@@ -53,6 +53,8 @@
 </template>
 
 <script>
+  var newprojectUrl = "http://120.79.211.191"
+  import Qs from 'qs'
 export default {
   data(){
     return {
@@ -73,6 +75,7 @@ export default {
     }
   },
   mounted(){
+
   },
   methods: {
     admin_register(){
@@ -82,10 +85,9 @@ export default {
       this.$router.go(0);
     },
     admin_login(){
-      var data = {username:this.username,password:this.password};
-      this.$http.post('',data).then((res)=>{
-        res = res.body;
-        console.log(res);
+      var data = {username:this.username,password:hex_md5(this.password)};//
+      this.$http.post(newprojectUrl+'/login.php',Qs.stringify(data)).then((res)=>{
+        res = res.data;
         if(res.code == 1){
           alert("登陆成功!")
           sessionStorage.setItem("username",this.username);
@@ -162,7 +164,7 @@ export default {
     text-align center;
     line-height 30px;
     left 30px;
-    top:60px;
+    top:20px;
     cursor pointer;
     border-radius 3px;
   }

@@ -1,6 +1,7 @@
 <template>
     <div class="event">
       <div id="wrap">
+        <div class="back" @click="back_lastpage">返回</div>
         <div class="event_message">
           <div class="bg_box">
             <div class="message_box">
@@ -13,9 +14,9 @@
               </p>
             </div>
             <div class="edit_box1 admin_edit">
-              <div class="edit caned" @click="caneditable()">编辑</div>
-              <div class="cancel edit" @click="canceledit()">取消</div>
-              <div class="store edit" @click="storeedit()">保存</div>
+              <div class="edit caned" @click="caneditable()" onselectstart="return false">编辑</div>
+              <div class="cancel edit" @click="canceledit()" onselectstart="return false">取消</div>
+              <div class="store edit" @click="storeedit()" onselectstart="return false">保存</div>
             </div>
           </div>
         </div>
@@ -39,6 +40,8 @@
 
 <script>
   var projectUrl = "http://120.79.211.191:8080/University/event";
+  var newprojectUrl = "http://120.79.211.191"
+  import Qs from 'qs'
     export default {
       data(){
         return{
@@ -56,10 +59,14 @@
         this.$http.get(projectUrl+"/eventDetail?eid="+this.input+"&pid=1").then((response) => {
           response = response.data;
           this.event = response;
+          console.log(this.event)
           $(".event_message").css("background-image","url(\""+this.event.event_img+"\")");
         })
       },
       methods:{
+        back_lastpage(){
+          this.$router.go(-1);
+        },
         caneditable(){
           this.old_text = $(".message_box").html();
           $(".edit_box1 .edit").css("display","inline-block");
@@ -81,9 +88,10 @@
           // $("#event_date").attr("contentEditable",false);
           // $("#introduce").attr("contentEditable", false);
 
-          var data = {event_topic:$("#event_topic").text(),event_date:$("#event_date").text(),introduce:$("#introduce").text()}
-          this.$http.post('',data).then((res)=>{
-            res = res.body;
+          var data = {event_title:$("#event_topic").text(),event_date:$("#event_date").text(),introduce:$("#introduce").text(),id:this.input};
+          console.log(data);
+          this.$http.post(newprojectUrl+'/index.php',Qs.stringify(data)).then((res)=>{
+            res = res.data;
             console.log(res);
             if(res.code == 1){
               alert("修改成功!")
@@ -111,13 +119,25 @@
 </script>
 
 <style scoped lang="stylus">
+
   .event .admin_edit{
     display none;
   }
   #wrap{
+    position relative;
     width: 1024px;
     margin: 20px auto;
   }
+    .back{
+      position absolute;
+      right 0;
+      padding 10px;
+      background:#fb7c45;
+      color #fff;
+      top:-60px;
+      border-radius 5px;
+      cursor pointer;
+    }
   .event_message{
     width: 100%;
     min-height: 470px;

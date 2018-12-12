@@ -21,7 +21,7 @@ export default new Router({
       path: '/',
       redirect:'/Homepage',
       meta: {
-        keepAlive: true,
+        keepAlive: false,
       }
     },
     {
@@ -30,7 +30,7 @@ export default new Router({
       // component: Homepage
       component:resolve => require(['@/components/homepage/Homepage'],resolve),
       meta: {
-        keepAlive: true,
+        keepAlive: false,
       }
     },
     {
@@ -66,7 +66,7 @@ export default new Router({
       // component: about
       component:resolve => require(['@/components/about/about'],resolve),
       meta: {
-        keepAlive: true,
+        keepAlive: false,
       }
     },
     {
@@ -84,7 +84,7 @@ export default new Router({
       // component: product,
       component:resolve => require(['@/components/product/product'],resolve),
       meta: {
-        keepAlive: true,
+        keepAlive: false,
       }
     },
     {

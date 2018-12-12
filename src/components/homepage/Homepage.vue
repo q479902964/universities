@@ -7,12 +7,16 @@
     <div id="wrapper" v-show="flag">
       <div class="wrap_box">
         <div class="line_box">
-          <div class="line1 line" @click="change_img(0)"></div>
-          <div class="line2 line" @click="change_img(1)"></div>
+          <!--<div class="line1 line" @click="change_img(0)"></div>-->
+          <!--<div class="line2 line" @click="change_img(1)"></div>-->
+          <div class="line1 line" @click="img_index=0" v-bind:class="[img_index==0?'line_in':'line_out']"></div>
+          <div class="line2 line" @click="img_index=1" v-bind:class="[img_index==1?'line_in':'line_out']"></div>
         </div>
         <div class="title" >
-          <img :src=banner1 v-show="img_index==0">
-          <img :src=banner2 v-show="img_index==1">
+          <transition-group name="banner" tag="ul">
+            <img :src=banner1 v-show="img_index==0" v-bind:key="0">
+            <img :src=banner2 v-show="img_index==1" v-bind:key="1">
+          </transition-group>
         </div>
         <div class="content_box">
           <ul>
@@ -28,7 +32,7 @@
           </ul>
         </div>
       </div>
-      <a :href="'#/entry'">
+      <a href='#/entry'>
         <div class="go_entry">
           <div>免费使用入口</div>
         </div>
@@ -50,41 +54,55 @@ export default {
     }
   },
   created(){
-    this.play()
   },
   mounted(){
+    this.play();
     this.flag = true;
+    function checkIE(){
+      return '-ms-scroll-limit' in document.documentElement.style && '-ms-ime-align' in document.documentElement.style
+    }
+    if (checkIE()) {
+      window.addEventListener('hashchange', () => {
+        var currentPath = window.location.hash.slice(1);
+        if (this.$route.path !== currentPath) {
+          this.$router.push(currentPath)
+        }
+      }, false)
+    }
   },
   methods:{
+    jump_entry(){
+      this.$router.push({path: 'entry'})
+    },
     change_img(index){
       this.img_index = index;
-      if(this.img_index==0){
-        $(".title img").eq(1).hide();
-        $(".title img").eq(0).fadeIn(1000);
-        $(".line1").css("background","#FB7C45")
-        $(".line2").css("background","#FFF")
-      }
-      else{
-        $(".title img").eq(0).hide();
-        $(".title img").eq(1).fadeIn(1000);
-        $(".line2").css("background","#FB7C45")
-        $(".line1").css("background","#FFF")
-      }
+      // if(this.img_index==0){
+      //   $(".line1").css("background","#FB7C45")
+      //   $(".line2").css("background","#FFF")
+      //   $(".title img").eq(1).hide();
+      //   $(".title img").eq(0).fadeIn(1000);
+      // }
+      // else{
+      //   $(".line2").css("background","#FB7C45")
+      //   $(".line1").css("background","#FFF")
+      //   $(".title img").eq(0).hide();
+      //   $(".title img").eq(1).fadeIn(1000);
+      // }
     },
     autoPlay(){
       this.img_index++;
       if (this.img_index === 2) { //当遍历到最后一张图片置零
         this.img_index = 0
       }
-      this.change_img(this.img_index)
+      // this.change_img(this.img_index)
     },
     play () {
       this.intId=setInterval(this.autoPlay, 3000)
     }
   },
-  beforeDestroy(){
-    this.intId = clearInterval(this.intId);
-  }
+    beforeDestroy(){
+      this.intId = clearInterval(this.intId);
+    }
   }
 </script>
 
@@ -108,9 +126,24 @@ export default {
   }
 
   /*pc端*/
-    .fade-enter-active,.fade-leave-active{
+  .banner-enter-active{
+    transition: all 1s ease;
+  }
+  .banner-leave-active{
+    transition: all 0s ease;
+  }
+  .banner-enter-active,.banner-leave{
+    opacity: 1;
+  }
+  .banner-leave-active{
+    opacity: 1;
+  }
+  .banner-enter{
+    opacity: 0;
+  }
+  .fade-enter-active,.fade-leave-active{
       transition: all 1s;
-    }
+  }
     .fade-enter{
       opacity 0;
       transform: translateX(100%);
@@ -142,13 +175,19 @@ export default {
     .line_box .line1{
       width: 3px;
       height: 50px;
-      background: #FB7C45;
+      /*background: #FB7C45;*/
     }
     .line_box .line2{
       margin-top: 10px;
       width: 3px;
       height: 50px;
-      background: #FFF;
+      /*background: #FFF;*/
+    }
+    .line_in{
+      background #FB7C45;
+    }
+    .line_out{
+      background #FFF;
     }
     .line_box .line:hover{
       background: #FB7C45;
@@ -161,6 +200,7 @@ export default {
       position: absolute;
       top:-2px;
       left: 231px;
+      overflow hidden;
     }
     #wrapper .title img{
       width: 100%;

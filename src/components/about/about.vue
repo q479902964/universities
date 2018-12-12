@@ -9,6 +9,9 @@
                 <p>项目成员来自广东外语外贸大学智能信息处理研究所-数据挖掘兴趣小组，对数据挖掘和自然语言处理研究有一定的知识积累，并掌握了较好的计算机专业基础，包括编程，网站系统的开发和项目管理方面的能力。</p>
               </div>
               <div class="bg2_box"></div>
+              <transition name="move">
+                <img class="int" src="./circle.png" v-show="flag">
+              </transition>
             </div>
             <div class="interest">
               <h1>研究兴趣</h1>
@@ -37,9 +40,6 @@
               <div class="line_box"></div>
             </div>
           </div>
-        </transition>
-        <transition name="move">
-          <img class="int" src="./circle.png" v-show="flag">
         </transition>
     </div>
   </div>
@@ -87,21 +87,23 @@
     width: 30.8%;//
     /*height: 467px;*/
     position: absolute;
-    right: 60px;
-    top: 19px;
+    right: 30px;
+    top: -40px;
     z-index: 1;
     /*-webkit-animation:go 2s infinite linear*/
   }
     @media screen and (min-width: 1180px){
       .int{
         width: 30.8%;//
-        top: 60px;
+        top: -40px;
+        right: 90px;
       }
     }
   @media screen and (min-width: 1440px){
     .int{
       width: 467px;
-      top: 19px;
+      top: -73px;
+      right: 90px;
     }
   }
   .wrap_box .introduce{
@@ -109,6 +111,8 @@
     width:100%;
     height: 426px;
     background:url("./bg.png");
+    background-repeat no-repeat;
+    background-size cover;
   }
   .wrap_box .introduce .content{
     position: absolute;

@@ -32,10 +32,10 @@
           </ul>
         </div>
         <div class="edit_box admin_edit" id="edit_box">
-          <div class="edit caned" @click="caneditable('weibo_news')">编辑</div>
-          <div class="edit add" @click="addedit('weibo_news')">新增</div>
-          <div class="store edit" @click="storeedit('weibo_news')">保存</div>
-          <div class="cancel edit" @click="canceledit('weibo_news')">取消</div>
+          <div class="edit caned" @click="caneditable('weibo_news')" onselectstart="return false">编辑</div>
+          <div class="edit add" @click="addedit('weibo_news')" onselectstart="return false">新增</div>
+          <div class="store edit" @click="storeedit('weibo_news')" onselectstart="return false">保存</div>
+          <div class="cancel edit" @click="canceledit('weibo_news')" onselectstart="return false">取消</div>
         </div>
         <div class="propagation_chain">
           <div class="rank_title">
@@ -76,16 +76,16 @@
         </div>
         <div style="width: 100%;height: 30px;clear: both" class="admin_edit">
           <div class="edit_box" id="edit_box1">
-            <div class="edit caned" @click="caneditable('age_pie')">编辑</div>
-            <div class="edit add" @click="addedit('age_pie')">新增</div>
-            <div class="store edit" @click="storeedit('age_pie')">保存</div>
-            <div class="cancel edit" @click="canceledit('age_pie')">取消</div>
+            <div class="edit caned" @click="caneditable('age_pie')" onselectstart="return false">编辑</div>
+            <div class="edit add" @click="addedit('age_pie')" onselectstart="return false">新增</div>
+            <div class="store edit" @click="storeedit('age_pie')" onselectstart="return false">保存</div>
+            <div class="cancel edit" @click="canceledit('age_pie')" onselectstart="return false">取消</div>
           </div>
           <div class="edit_box" id="edit_box2">
-            <div class="edit caned" @click="caneditable('sex_pie')">编辑</div>
-            <div class="edit add" @click="addedit('sex_pie')">新增</div>
-            <div class="store edit" @click="storeedit('sex_pie')">保存</div>
-            <div class="cancel edit" @click="canceledit('sex_pie')">取消</div>
+            <div class="edit caned" @click="caneditable('sex_pie')" onselectstart="return false">编辑</div>
+            <div class="edit add" @click="addedit('sex_pie')" onselectstart="return false">新增</div>
+            <div class="store edit" @click="storeedit('sex_pie')" onselectstart="return false">保存</div>
+            <div class="cancel edit" @click="canceledit('sex_pie')" onselectstart="return false">取消</div>
           </div>
         </div>
         <div class="population_area">
@@ -104,10 +104,10 @@
           </div>
         </div>
         <div class="edit_box admin_edit" id="edit_box3">
-          <div class="edit caned" @click="caneditable('population_area')">编辑</div>
-          <div class="add edit" @click="addedit('population_area')">新增</div>
-          <div class="store edit" @click="storeedit('population_area')">保存</div>
-          <div class="cancel edit" @click="canceledit('population_area')">取消</div>
+          <div class="edit caned" @click="caneditable('population_area')" onselectstart="return false">编辑</div>
+          <div class="add edit" @click="addedit('population_area')" onselectstart="return false">新增</div>
+          <div class="store edit" @click="storeedit('population_area')" onselectstart="return false">保存</div>
+          <div class="cancel edit" @click="canceledit('population_area')" onselectstart="return false">取消</div>
         </div>
         <div style="clear: both"></div>
         <div class="topic">
@@ -124,10 +124,10 @@
             </ul>
           </div>
           <div class="edit_box admin_edit" id="edit_box4">
-            <div class="edit caned" @click="caneditable('topic')">编辑</div>
-            <div class="add edit" @click="addedit('topic')">新增</div>
-            <div class="store edit" @click="storeedit('topic')">保存</div>
-            <div class="cancel edit" @click="canceledit('topic')">取消</div>
+            <div class="edit caned" @click="caneditable('topic')" onselectstart="return false">编辑</div>
+            <div class="add edit" @click="addedit('topic')" onselectstart="return false">新增</div>
+            <div class="store edit" @click="storeedit('topic')" onselectstart="return false">保存</div>
+            <div class="cancel edit" @click="canceledit('topic')" onselectstart="return false">取消</div>
           </div>
         </div>
         <div class="active_users">
@@ -144,10 +144,10 @@
           </ul>
         </div>
         <div class="edit_box admin_edit" id="edit_box5">
-          <div class="edit caned" @click="caneditable('active_users')">编辑</div>
-          <div class="add edit" @click="addedit('active_users')">新增</div>
-          <div class="store edit" @click="storeedit('active_users')">保存</div>
-          <div class="cancel edit" @click="canceledit('active_users')">取消</div>
+          <div class="edit caned" @click="caneditable('active_users')" onselectstart="return false">编辑</div>
+          <div class="add edit" @click="addedit('active_users')" onselectstart="return false">新增</div>
+          <div class="store edit" @click="storeedit('active_users')" onselectstart="return false">保存</div>
+          <div class="cancel edit" @click="canceledit('active_users')" onselectstart="return false">取消</div>
         </div>
       </div>
     </div>
@@ -159,7 +159,9 @@
   import china from 'echarts/map/js/china.js';
   import draggable from 'vuedraggable'
   import ddsort from './ddsort'
+  import Qs from 'qs'
   var projectUrl = "http://120.79.211.191:8080/University/weibo";
+  var newprojectUrl = "http://120.79.211.191";
     export default {
       data(){
         return {
@@ -435,7 +437,7 @@
               };
               data.push(temp);
             }
-            data = {newsList:data};
+            data = {newsList:JSON.stringify(data),id:this.input};
             console.log(data);
             // $(".news_title").attr("contentEditable", false);
             // $(".news_author").attr("contentEditable", false);
@@ -444,8 +446,8 @@
             // $(".comment_num").attr("contentEditable", false);
             // $(".thumbsup_num").attr("contentEditable", false);
 
-            this.$http.post('',data).then((res)=>{
-              res = res.body;
+            this.$http.post(newprojectUrl+'/wb_news.php',Qs.stringify(data)).then((res)=>{
+              res = res.data;
               console.log(res);
               if(res.code == 1){
                 alert("修改成功!")
@@ -474,10 +476,10 @@
               temp.push($(".active_users ul li").eq(i).find(".event").text());
             }
 
-            var data = {username:temp};
+            var data = {username:JSON.stringify(temp),id:this.input};
             console.log(data)
-            this.$http.post('',data).then((res)=>{
-              res = res.body;
+            this.$http.post(newprojectUrl+'/wb_username.php',Qs.stringify(data)).then((res)=>{
+              res = res.data;
               console.log(res);
               if(res.code == 1){
                 alert("修改成功!")
@@ -507,10 +509,10 @@
             for(var i=0;i<$(".topic .ca_box ul li").length;i++){
               temp.push($(".topic .ca_box ul li").eq(i).find("span").text());
             }
-            var data = {topic:temp};
+            var data = {topic:JSON.stringify(temp),id:this.input};
             console.log(data)
-            this.$http.post('',data).then((res)=>{
-              res = res.body;
+            this.$http.post(newprojectUrl+'/wb_topic.php',Qs.stringify(data)).then((res)=>{
+              res = res.data;
               console.log(res);
               if(res.code == 1){
                 alert("修改成功!")
@@ -532,7 +534,7 @@
             this.areaStatistics =[];
             var temp ={};
             for(var i=0;i<$(".map_edit ul li").length;i++) {
-              temp = {areaName:$(".map_edit ul li").eq(i).find("span").eq(0).text(),areaValue:$(".map_edit ul li").eq(i).find("input").val()};
+              temp = {areaName:$(".map_edit ul li").eq(i).find("input").eq(0).val(),areaValue:$(".map_edit ul li").eq(i).find("input").eq(1).val()};
               this.areaStatistics.push(temp);
             }
             // this.area_charts();
@@ -541,10 +543,10 @@
             // $("#map_pie").show();
             // $(".map_edit").hide();
 
-            var data = {areaStatistics:this.areaStatistics};
+            var data = {areaStatistics:JSON.stringify(this.areaStatistics),id:this.input};
             console.log(data);
-            this.$http.post('',data).then((res)=>{
-              res = res.body;
+            this.$http.post(newprojectUrl+'/area.php',Qs.stringify(data)).then((res)=>{
+              res = res.data;
               console.log(res);
               if(res.code == 1){
                 alert("修改成功!")
@@ -575,10 +577,10 @@
             // $("#age_pie").show();
             // $(".age_edit").hide();
 
-            var data = {ageStatistics:this.ageStatistics};
+            var data = {ageStatistics:JSON.stringify(this.ageStatistics),id:this.input};
             console.log(data);
-            this.$http.post('',data).then((res)=>{
-              res = res.body;
+            this.$http.post(newprojectUrl+'/age.php',Qs.stringify(data)).then((res)=>{
+              res = res.data;
               console.log(res);
               if(res.code == 1){
                 alert("修改成功!")
@@ -609,10 +611,10 @@
             // $("#sex_pie").show();
             // $(".sex_edit").hide();
 
-            var data = {sexStatistics:this.sexStatistics};
+            var data = {sexStatistics:JSON.stringify(this.sexStatistics),id:this.input};
             console.log(data);
-            this.$http.post('',data).then((res)=>{
-              res = res.body;
+            this.$http.post(newprojectUrl+'/sex.php',Qs.stringify(data)).then((res)=>{
+              res = res.data;
               console.log(res);
               if(res.code == 1){
                 alert("修改成功!")
@@ -1228,18 +1230,18 @@
   .population_attribute{
     margin-top: 20px;
     width: 1024px;
-    /*height: 460px;*/
-    /*box-shadow: 0 4px 4px 0 rgba(224,224,224,0.50);*/
+    height: 460px;
+    box-shadow: 0 4px 4px 0 rgba(224,224,224,0.50);
     background: #fff;
   }
-  .l-box,.r-box{
+  .weibo .l-box,.weibo .r-box{
     width: 512px;
-    height: 380px;
+    min-height: 380px;
     float: left;
   }
   #age_pie,#sex_pie{
     width: 100%;
-    height: 100%;
+    min-height: 380px;
   }
   /*热度走势可编辑*/
   .age_title,.sex_title{
@@ -1285,7 +1287,7 @@
   /*关注人群地域分析*/
 
   /*话题链*/
-  .topic{
+  .weibo .topic{
     margin-top: 20px;
     width: 100%;
     height: 50px;

@@ -6,6 +6,7 @@ import router from './router'
 import $ from 'jquery'
 import echarts from 'echarts'
 import axios from 'axios'
+import 'babel-polyfill'
 
 Vue.prototype.$http = axios;
 Vue.prototype.$echarts = echarts;

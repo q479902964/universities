@@ -15,10 +15,10 @@
             </ul>
           </div>
           <div class="admin_edit">
-            <div class="edit caned" @click="caneditable('event_catelogy')">编辑</div>
-            <div class="cancel edit" @click="canceledit('event_catelogy',typeAndTopic.classification)">取消</div>
-            <div class="store edit" @click="storeedit('event_catelogy')">保存</div>
-            <div class="add edit" @click="addedit('event_catelogy')">新增</div>
+            <div class="edit caned" @click="caneditable('event_catelogy')" onselectstart="return false">编辑</div>
+            <div class="cancel edit" @click="canceledit('event_catelogy',typeAndTopic.classification)" onselectstart="return false">取消</div>
+            <div class="store edit" @click="storeedit('event_catelogy')" onselectstart="return false">保存</div>
+            <div class="add edit" @click="addedit('event_catelogy')" onselectstart="return false">新增</div>
           </div>
         </div>
         <div class="topic">
@@ -35,10 +35,10 @@
             </ul>
           </div>
           <div class="admin_edit">
-            <div class="edit caned" @click="caneditable('topic')">编辑</div>
-            <div class="cancel edit" @click="canceledit('topic')">取消</div>
-            <div class="store edit" @click="storeedit('topic')">保存</div>
-            <div class="add edit" @click="addedit('topic')">新增</div>
+            <div class="edit caned" @click="caneditable('topic')" onselectstart="return false">编辑</div>
+            <div class="cancel edit" @click="canceledit('topic')" onselectstart="return false">取消</div>
+            <div class="store edit" @click="storeedit('topic')" onselectstart="return false">保存</div>
+            <div class="add edit" @click="addedit('topic')" onselectstart="return false" >新增</div>
           </div>
         </div>
         <div class="event_chain">
@@ -66,10 +66,10 @@
           </div>
         </div>
         <div class="edit_box admin_edit" id="edit_box">
-          <div class="edit_1 caned" @click="caneditable('event_box')">编辑</div>
-          <div class="add edit_1" @click="addedit('event_box')">新增</div>
-          <div class="store edit_1" @click="storeedit('event_box')">保存</div>
-          <div class="cancel edit_1" @click="canceledit('event_box')">取消</div>
+          <div class="edit_1 caned" @click="caneditable('event_box')" onselectstart="return false">编辑</div>
+          <div class="add edit_1" @click="addedit('event_box')" onselectstart="return false">新增</div>
+          <div class="store edit_1" @click="storeedit('event_box')" onselectstart="return false">保存</div>
+          <div class="cancel edit_1" @click="canceledit('event_box')" onselectstart="return false">取消</div>
         </div>
         <div class="position_detection">
           <div class="rank_title">
@@ -112,10 +112,10 @@
           </div>
         </div>
         <div class="edit_box1 admin_edit" id="edit_box1">
-          <div class="edit_1 caned" @click="caneditable('position_detection')">编辑</div>
-          <div class="edit_1 add" @click="addedit('position_detection')">新增</div>
-          <div class="store edit_1" @click="storeedit('position_detection')">保存</div>
-          <div class="cancel edit_1" @click="canceledit('position_detection')">取消</div>
+          <div class="edit_1 caned" @click="caneditable('position_detection')" onselectstart="return false">编辑</div>
+          <div class="edit_1 add" @click="addedit('position_detection')" onselectstart="return false">新增</div>
+          <div class="store edit_1" @click="storeedit('position_detection')" onselectstart="return false">保存</div>
+          <div class="cancel edit_1" @click="canceledit('position_detection')" onselectstart="return false">取消</div>
         </div>
         <div class="hot_trend">
           <div class="rank_title">
@@ -134,10 +134,10 @@
           </div>
         </div>
         <div class="edit_box1 admin_edit" id="edit_box2">
-          <div class="edit_1 caned" @click="caneditable('hot_trend')">编辑</div>
-          <div class="edit_1 add" @click="addedit('hot_trend')">新增</div>
-          <div class="store edit_1" @click="storeedit('hot_trend')">保存</div>
-          <div class="cancel edit_1" @click="canceledit('hot_trend')">取消</div>
+          <div class="edit_1 caned" @click="caneditable('hot_trend')" onselectstart="return false">编辑</div>
+          <div class="edit_1 add" @click="addedit('hot_trend')" onselectstart="return false">新增</div>
+          <div class="store edit_1" @click="storeedit('hot_trend')" onselectstart="return false">保存</div>
+          <div class="cancel edit_1" @click="canceledit('hot_trend')" onselectstart="return false">取消</div>
         </div>
         <div class="percent_chart">
           <div class="l-box">
@@ -175,16 +175,16 @@
         </div>
         <div style="width: 100%;height: 30px" class="admin_edit">
           <div class="edit_box1" id="edit_box3">
-            <div class="edit_1 caned" @click="caneditable('news_percent')">编辑</div>
-            <div class="edit_1 add" @click="addedit('news_percent')">新增</div>
-            <div class="store edit_1" @click="storeedit('news_percent')">保存</div>
-            <div class="cancel edit_1" @click="canceledit('news_percent')">取消</div>
+            <div class="edit_1 caned" @click="caneditable('news_percent')" onselectstart="return false">编辑</div>
+            <div class="edit_1 add" @click="addedit('news_percent')" onselectstart="return false">新增</div>
+            <div class="store edit_1" @click="storeedit('news_percent')" onselectstart="return false">保存</div>
+            <div class="cancel edit_1" @click="canceledit('news_percent')" onselectstart="return false">取消</div>
           </div>
           <div class="edit_box1" id="edit_box4">
-            <div class="edit_1 caned" @click="caneditable('emotions_percent')">编辑</div>
-            <div class="edit_1 add" @click="addedit('emotions_percent')">新增</div>
-            <div class="store edit_1" @click="storeedit('emotions_percent')">保存</div>
-            <div class="cancel edit_1" @click="canceledit('emotions_percent')">取消</div>
+            <div class="edit_1 caned" @click="caneditable('emotions_percent')" onselectstart="return false">编辑</div>
+            <div class="edit_1 add" @click="addedit('emotions_percent')" onselectstart="return false">新增</div>
+            <div class="store edit_1" @click="storeedit('emotions_percent')" onselectstart="return false">保存</div>
+            <div class="cancel edit_1" @click="canceledit('emotions_percent')" onselectstart="return false">取消</div>
           </div>
         </div>
         <div class="key_word">
@@ -204,10 +204,10 @@
           </div>
         </div>
         <div class="edit_box1 admin_edit" id="edit_box5">
-          <div class="edit_1 caned" @click="caneditable('key_word')">编辑</div>
-          <div class="edit_1 add" @click="addedit('key_word')">新增</div>
-          <div class="store edit_1" @click="storeedit('key_word')">保存</div>
-          <div class="cancel edit_1" @click="canceledit('key_word')">取消</div>
+          <div class="edit_1 caned" @click="caneditable('key_word')" onselectstart="return false">编辑</div>
+          <div class="edit_1 add" @click="addedit('key_word')" onselectstart="return false">新增</div>
+          <div class="store edit_1" @click="storeedit('key_word')" onselectstart="return false">保存</div>
+          <div class="cancel edit_1" @click="canceledit('key_word')" onselectstart="return false">取消</div>
         </div>
       </div>
     </div>
@@ -218,7 +218,9 @@
   require('echarts-wordcloud');
   import draggable from 'vuedraggable'
   import ddsort from './ddsort'
+  import Qs from 'qs'
   var projectUrl = "http://120.79.211.191:8080/University/event";
+  var newprojectUrl = "http://120.79.211.191";
   export default {
     components:{
       draggable
@@ -409,7 +411,8 @@
          }
          else{
             this.old_text = $("." + text + " .ca_box ul").html();
-            $("." + text + " .ca_box ul li").attr("contentEditable", true);
+            $("." + text + " .ca_box ul li").attr("contentEditable",false);
+          $("." + text + " .ca_box ul li span").attr("contentEditable",true);
             $("." + text + " .edit").css("display", "inline-block");
             $("." + text + " .caned").css("display", "none");
             for (var i = 0; i < $("." + text + " .ca_box ul li").length; i++) {
@@ -451,7 +454,7 @@
           $(".emotions_edit ul").html("");
           $("#edit_box4 .edit_1").css("display", "none");
           $("#edit_box4 .caned").css("display", "inline-block");
-          $("#keyword").show();
+          $("#emotion_pie").show();
           $(".emotions_edit").hide();
         }
         else if(text=='news_percent'){
@@ -513,10 +516,10 @@
             temp = {event_date:$(".event_box ul li").eq(i).find(".event_date").text(),event_content:$(".event_box ul li").eq(i).find(".event_content").text()}
             data.push(temp);
           }
-          data = {Development:data};
+          data = {Development:JSON.stringify(data),id:this.input};
           console.log(data);
-          this.$http.post('',data).then((res)=>{
-            res = res.body;
+          this.$http.post(newprojectUrl+'/event_development.php',Qs.stringify(data)).then((res)=>{
+            res = res.data;
             console.log(res);
             if(res.code == 1){
               alert("修改成功!")
@@ -547,10 +550,10 @@
           // $("#keyword").show();
           // $(".keyword_edit").hide();
 
-          var data = {EventKeyword:this.EventKeyword};
+          var data = {EventKeyword:JSON.stringify(this.EventKeyword),id:this.input};
           console.log(data);
-          this.$http.post('',data).then((res)=>{
-            res = res.body;
+          this.$http.post(newprojectUrl+'/EventKeyword.php',Qs.stringify(data)).then((res)=>{
+            res = res.data;
             console.log(res);
             if(res.code == 1){
               alert("修改成功!")
@@ -581,10 +584,10 @@
           // $("#emotion_pie").show();
           // $(".emotions_edit").hide();
 
-          var data = {EmotionStatistics:this.EmotionStatistics};
+          var data = {EmotionStatistics:JSON.stringify(this.EmotionStatistics),id:this.input};
           console.log(data);
-          this.$http.post('',data).then((res)=>{
-            res = res.body;
+          this.$http.post(newprojectUrl+'/EmotionStatistics.php',Qs.stringify(data)).then((res)=>{
+            res = res.data;
             console.log(res);
             if(res.code == 1){
               alert("修改成功!")
@@ -615,10 +618,10 @@
           // $("#news_pie").show();
           // $(".news_edit").hide();
 
-          var data = {NewsStatistics:this.NewsStatistics};
+          var data = {NewsStatistics:JSON.stringify(this.NewsStatistics),id:this.input};
           console.log(data);
-          this.$http.post('',data).then((res)=>{
-            res = res.body;
+          this.$http.post(newprojectUrl+'/NewsStatistics.php',Qs.stringify(data)).then((res)=>{
+            res = res.data;
             console.log(res);
             if(res.code == 1){
               alert("修改成功!")
@@ -650,10 +653,10 @@
           // $("#trend_chart").show();
           // $(".hot_trend_edit").hide();
 
-          var data = {EmotionTrend:this.EmotionTrend};
+          var data = {EmotionTrend:JSON.stringify(this.EmotionTrend),id:this.input};
           console.log(data);
-          this.$http.post('',data).then((res)=>{
-            res = res.body;
+          this.$http.post(newprojectUrl+'/EmotionTrend.php',Qs.stringify(data)).then((res)=>{
+            res = res.data;
             console.log(res);
             if(res.code == 1){
               alert("修改成功!")
@@ -701,14 +704,14 @@
               op_cm.push($(".comment_box .c_box").eq(i).find(".li2 ul li").eq(k).find("span").text())
             }
             temp = {obj:$(".comment_box .c_box").eq(i).find(".comment_position span").text(),
-              opposition:$(".comment_box .c_box").eq(i).find(".li2 .percent_info").text(),
-              favor:$(".comment_box .c_box").eq(i).find(".li1 .percent_info").text(),
+              opposition:Number($(".comment_box .c_box").eq(i).find(".li2 .percent_info").text())/100,
+              favor:Number($(".comment_box .c_box").eq(i).find(".li1 .percent_info").text())/100,
               opposition_comment:op_cm,favor_comment:fa_cm}
             data.push(temp);
           }
-          data = {ObjStatistics:data};
-          this.$http.post('',data).then((res)=>{
-            res = res.body;
+          data = {ObjStatistics:JSON.stringify(data),id:this.input};
+          this.$http.post(newprojectUrl+'/ObjStatistics.php',Qs.stringify(data)).then((res)=>{
+            res = res.data;
             console.log(res);
             if(res.code == 1){
               alert("修改成功!")
@@ -732,10 +735,14 @@
             for(var i=0;i<$(".event_catelogy .ca_box ul li").length;i++){
               temp.push($(".event_catelogy .ca_box ul li").eq(i).find("span").text());
             }
-            var data = {event_catelogy:temp};
+            if(temp.length>1){
+              alert("最多只能存在一个事件类型");
+              return;
+            }
+            var data = {event_catelogy:JSON.stringify(temp),id:this.input};
             console.log(data)
-            this.$http.post('',data).then((res)=>{
-              res = res.body;
+            this.$http.post(newprojectUrl+'/catelogy.php',Qs.stringify(data)).then((res)=>{
+              res = res.data;
               console.log(res);
               if(res.code == 1){
                 alert("修改成功!")
@@ -751,10 +758,10 @@
             for(var i=0;i<$(".topic .ca_box ul li").length;i++){
               temp.push($(".topic .ca_box ul li").eq(i).find("span").text());
             }
-            var data = {topic:temp};
+            var data = {topic:JSON.stringify(temp),id:this.input};
             console.log(data)
-            this.$http.post('',data).then((res)=>{
-              res = res.body;
+            this.$http.post(newprojectUrl+'/event_topic.php',Qs.stringify(data)).then((res)=>{
+              res = res.data;
               console.log(res);
               if(res.code == 1){
                 alert("修改成功!")
@@ -1630,6 +1637,10 @@
     border-left: 1px solid #979797;
     position: relative;
   }
+  .ca_box ul li span{
+    min-width: 20px;
+    display: inline-block;
+  }
   .ca_box ul li:first-of-type{
     border-left: 0;
   }
@@ -1657,7 +1668,7 @@
   /*事件类型*/
 
   /*话题链*/
-  .topic{
+  .news .topic{
     margin-top: 20px;
     width: 100%;
     height: 50px;
@@ -1731,7 +1742,7 @@
     -webkit-border-radius: 50px;
     border-radius: 50px;
   }
-  .line{
+  .news .line{
     position: absolute;
     top:64px;
     left: 180px;
@@ -2032,17 +2043,17 @@
     min-height: 420px;
     background: transparent;
   }
-  .l-box{
+  .news .l-box{
     float: left;
     width: 502px;
-    height: 420px;
+    min-height: 420px;
     background: #FFFFFF;
     box-shadow: 0 4px 4px 0 rgba(224,224,224,0.50);
   }
-  .r-box{
+  .news .r-box{
     float: right;
     width: 502px;
-    height: 420px;
+    min-height: 420px;
     background: #FFFFFF;
     box-shadow: 0 4px 4px 0 rgba(224,224,224,0.50);
   }

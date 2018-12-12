@@ -32,10 +32,10 @@
           </ul>
         </div>
         <div class="edit_box admin_edit" id="edit_box">
-          <div class="edit caned" @click="caneditable('weibo_news')">编辑</div>
-          <div class="edit add" @click="addedit('weibo_news')">新增</div>
-          <div class="store edit" @click="storeedit('weibo_news')">保存</div>
-          <div class="cancel edit" @click="canceledit('weibo_news')">取消</div>
+          <div class="edit caned" @click="caneditable('weibo_news')" onselectstart="return false">编辑</div>
+          <div class="edit add" @click="addedit('weibo_news')" onselectstart="return false">新增</div>
+          <div class="store edit" @click="storeedit('weibo_news')" onselectstart="return false">保存</div>
+          <div class="cancel edit" @click="canceledit('weibo_news')" onselectstart="return false">取消</div>
         </div>
         <div class="user_box">
           <div class="opinion">
@@ -67,17 +67,17 @@
               <li v-for="(item,index) in Username" class="user_li">
                 <span class="user_name">{{item.username}}</span>
                 <ul class="comment_word">
-                  <li v-for="info in item.comment_word">
-                    <span>{{info}}</span>
+                  <li v-for="info in item.comment_word" contenteditable="false">
+                    <span contenteditable="true">{{info}}</span>
                   </li>
                 </ul>
               </li>
             </ul>
             <div class="edit_box admin_edit" id="edit_box2">
-              <div class="edit caned" @click="caneditable('viewpoint')">编辑</div>
-              <div class="add edit" @click="addedit('viewpoint')">新增</div>
-              <div class="store edit" @click="storeedit('viewpoint')">保存</div>
-              <div class="cancel edit" @click="canceledit('viewpoint')">取消</div>
+              <div class="edit caned" @click="caneditable('viewpoint')" onselectstart="return false">编辑</div>
+              <div class="add edit" @click="addedit('viewpoint')" onselectstart="return false">新增</div>
+              <div class="store edit" @click="storeedit('viewpoint')" onselectstart="return false">保存</div>
+              <div class="cancel edit" @click="canceledit('viewpoint')" onselectstart="return false">取消</div>
             </div>
           </div>
         </div>
@@ -87,7 +87,9 @@
 
 <script>
   var projectUrl = "http://120.79.211.191:8080/University/weibo";
+  var newprojectUrl = "http://120.79.211.191";
   import ddsort from './ddsort'
+  import Qs from 'qs'
   export default {
     data(){
       return{
@@ -148,7 +150,7 @@
           $(".viewpoint .user_ul li").attr("contentEditable", false);
           $(".viewpoint .user_ul li .user_name").attr("contentEditable", true);
           for(var i=0;i<$(".viewpoint .user_ul li .comment_word li").length;i++){
-            $(".viewpoint ul li .comment_word li").eq(i).attr("contentEditable", true);
+            $(".viewpoint ul li .comment_word li").eq(i).attr("contentEditable", false);
           }
           for (var i = 0; i < $(".viewpoint .user_ul li").length; i++) {
             var x = document.createElement("div");
@@ -236,7 +238,7 @@
           y.innerText = "+";
           y.contentEditable = false;
           y.addEventListener('click',function () {
-            $(this).parent().find(".comment_word").append("<li><span contenteditable='true'></span><div class=\"delete_li\" contenteditable=\"false\">×</div></li>")
+            $(this).parent().find(".comment_word").append("<li><span contenteditable='false'><span contenteditable='true'></span><div class=\"delete_li\" contenteditable=\"false\">×</div></li>")
             $(".delete_li").click(function () {
               $(this).parent().remove();
             })
@@ -278,7 +280,7 @@
             }
             data.push(temp);
           }
-          data = {newsList:data};
+          data = {newsList:JSON.stringify(data),id:this.id};
           console.log(data);
 
           // $(".news_title").attr("contentEditable", false);
@@ -288,8 +290,8 @@
           // $(".comment_num").attr("contentEditable", false);
           // $(".thumbsup_num").attr("contentEditable", false);
 
-          this.$http.post('',data).then((res)=>{
-            res = res.body;
+          this.$http.post(newprojectUrl+'/zh_news.php',Qs.stringify(data)).then((res)=>{
+            res = res.data;
             console.log(res);
             if(res.code == 1){
               alert("修改成功!")
@@ -337,7 +339,7 @@
             temp = {username:$(".viewpoint .user_ul .user_li").eq(i).find(".user_name").text(),comment_word:comment_word};
             data.push(temp);
           }
-          data = {username_list:data};
+          data = {username_list:JSON.stringify(data),id:this.input};
           console.log(data);
 
           // $("#edit_box2 .edit").css("display", "none");
@@ -353,8 +355,8 @@
           // $(".viewpoint .user_ul .user_li").find(".user_name").attr("contentEditable", false);
           // $(".viewpoint .user_ul .user_li").find(".comment_word span").attr("contentEditable", false);
 
-          this.$http.post('',data).then((res)=>{
-            res = res.body;
+          this.$http.post(newprojectUrl+'/zh_username.php',Qs.stringify(data)).then((res)=>{
+            res = res.data;
             console.log(res);
             if(res.code == 1){
               alert("修改成功!")
