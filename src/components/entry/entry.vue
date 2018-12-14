@@ -56,24 +56,38 @@
             </div>
           </div>
           <div class="ul_box">
-            <ul class="event_info_all">
-              <a v-for="(event_info,index) in allEvents" :href="'#/event?eid='+event_info.id+'&pid=1'">
+            <!--<ul class="event_info_all">-->
+              <!--<a v-for="(event_info,index) in allEvents" :href="'#/event?eid='+event_info.id+'&pid=1'">-->
+                <!--<li>-->
+                  <!--<span class="order_num" >{{index+1}}</span>-->
+                  <!--<span class="event">{{event_info.event}}</span>-->
+                  <!--<img  class="right_arrow" src="./right_Shape.png">-->
+                <!--</li>-->
+              <!--</a>-->
+            <!--</ul>-->
+            <!--<ul class="event_info" v-for="info in event"  v-show="false">-->
+              <!--<a v-for="event_info in info.event_info" :href="'#/event?eid='+event_info.id+'&pid=1'">-->
+                <!--<li>-->
+                  <!--<span class="order_num" >{{getindex()}}</span>-->
+                  <!--<span class="event">{{event_info.event}}</span>-->
+                  <!--<img  class="right_arrow" src="./right_Shape.png">-->
+                <!--</li>-->
+              <!--</a>-->
+            <!--</ul>-->
+            <ul class="event_info">
+              <a v-for="(event_info,index) in currentEvents" :href="'#/event?eid='+event_info.id+'&pid=1'">
                 <li>
-                  <span class="order_num" >{{index+1}}</span>
+                  <span class="order_num" >{{(index+1)+((currentPage-1)*10)}}</span>
                   <span class="event">{{event_info.event}}</span>
                   <img  class="right_arrow" src="./right_Shape.png">
                 </li>
               </a>
             </ul>
-            <ul class="event_info" v-for="info in event"  v-show="false">
-              <a v-for="event_info in info.event_info" :href="'#/event?eid='+event_info.id+'&pid=1'">
-                <li>
-                  <span class="order_num" >{{getindex()}}</span>
-                  <span class="event">{{event_info.event}}</span>
-                  <img  class="right_arrow" src="./right_Shape.png">
-                </li>
-              </a>
-            </ul>
+          </div>
+          <div class="page_line">
+            <span :class="currentPage==1?'hidden':'lastPage'" @click="lastPage">上一页</span>
+            <span :class="page==currentPage?'page cur_page':'page'"  v-for="page in getPage" @click="changePage(page)">{{page}}</span>
+            <span :class="currentPage==pageNum?'hidden':'nextPage'" @click="nextPage">下一页</span>
           </div>
         </div>
       </div>
@@ -88,36 +102,47 @@
           schoolOrder: [],
           event:[],
           listshow:false,
-          currentindex:0,
+          currentindex:-1,
           upTriangle: "static/upTriangle.png",
           downTriangle:"static/downTriangle.png",
-          allEvents:[]
+          allEvents:[],
+          currentPage:1,
+          pageNum:1
         }
       },
       created () {
         myindex=0;
       },
       methods:{
+        lastPage(){
+          this.currentPage--;
+        },
+        nextPage(){
+          this.currentPage++;
+        },
+        changePage(page){
+          this.currentPage = page;
+        },
         change_event(item,index){
+          this.currentindex = index;
           if(index==-1){
-            $(".event_info_all").show();
-            $(".event_info").hide();
+            // $(".event_info_all").show();
+            // $(".event_info").hide();
             $("#list").hide();
             $(".obj_show span").text(item);
           }else {
-            myindex = 0;
-            this.currentindex = index;
-            for(var i=0;i<$(".event_info").length;i++){
-              if(i==this.currentindex){
-                for(var j=0;j<$(".event_info").eq(i).find("li").length;j++){
-                  $(".event_info").eq(i).find("li").eq(j).find(".order_num").text(j+1);
-                }
-                $(".event_info").eq(i).show();
-              }else{
-                $(".event_info").eq(i).hide();
-              }
-            }
-            $(".event_info_all").hide();
+            // myindex = 0;
+            // for(var i=0;i<$(".event_info").length;i++){
+            //   if(i==this.currentindex){
+            //     for(var j=0;j<$(".event_info").eq(i).find("li").length;j++){
+            //       $(".event_info").eq(i).find("li").eq(j).find(".order_num").text(j+1);
+            //     }
+            //     $(".event_info").eq(i).show();
+            //   }else{
+            //     $(".event_info").eq(i).hide();
+            //   }
+            // }
+            // $(".event_info_all").hide();
             $("#list").hide();
             $(".obj_show span").text(item.obj);
           }
@@ -146,10 +171,10 @@
           this.listshow = !this.listshow;
           myindex=0;
         },
-        getindex(){
-          myindex++;
-          return myindex;
-        }
+        // getindex(){
+        //   myindex++;
+        //   return myindex;
+        // }
       },
       mounted(){
         this.$http.get('http://120.79.211.191:8080/University/school/schoolOrder').then((response) => {
@@ -164,26 +189,64 @@
       watch:{
         'event'(){
           this.$nextTick(()=>{
-            $(".event_info a:even").find("li").css("background","#F5F5F5");
-            $(".event_info a:odd").find("li").css("background","#fff");
             this.event.map((item)=>{
               item.event_info.map((item)=>{
                 var temp = {id:item.id,event:item.event}
                 this.allEvents.push(temp);
               })
             })
-            console.log(this.allEvents);
-          })
-        },
-        'allEvents'(){
-          this.$nextTick(()=>{
-            $(".event_info_all a:even").find("li").css("background","#F5F5F5");
-            $(".event_info_all a:odd").find("li").css("background","#fff");
           })
         }
       },
       computed:{
-
+        currentEvents(){
+          var events = [];
+          if(this.currentindex==-1){
+          this.pageNum = Math.floor(this.allEvents.length/10)+1;
+          this.allEvents.forEach((item,index)=>{
+            if(index<=this.currentPage*10&&index>(this.currentPage-1)*10){
+              events.push(item);
+            }
+          })
+            return events;
+          }else{
+            console.log(this.event[this.currentindex].event_info)
+            this.pageNum = Math.floor(this.event[this.currentindex].event_info.length/10)+1;
+            this.event[this.currentindex].event_info.forEach((item,index)=>{
+              if(index<=this.currentPage*10&&index>(this.currentPage-1)*10){
+                events.push(item);
+              }
+            })
+            return events;
+          }
+        },
+        getPage(){
+          var pageStart,pageEnd,maxPage;
+          maxPage = this.pageNum;
+          if(maxPage>1){
+            pageStart = this.currentPage - 5;
+            if(pageStart<1){
+              pageStart = 1;
+            }
+            // 最大页码
+            pageEnd = pageStart + 9;
+            if(pageEnd > maxPage) {
+              // 最后一个页码不能大于总页数
+              pageEnd = maxPage;
+            }
+            // 修正begin 的值, 理论上 begin 是 end - 9
+            pageStart = pageEnd - 9;
+            if(pageStart < 1) { // 第一个页码 不能小于1
+              pageStart = 1;
+            }
+          }
+          var res = [];
+          for(var i = pageStart; i <= pageEnd; i++) {
+            res.push(i)
+          }
+          console.log(res)
+          return res
+        }
       }
     }
 </script>
@@ -281,26 +344,66 @@
   }
   .ul_box{
     height: 420px;
-    overflow-y: auto;
-    overflow-x: hidden;
+  }
+  .ul_box ul{
+    height: 420px;
+    /*overflow: hidden;*/
+    /*overflow-y: auto;*/
+    /*overflow-x: hidden;*/
   }
   /*滚轮条样式*/
-  .ul_box::-webkit-scrollbar-track-piece{
-    background-color:transparent;/*滚动条的背景颜色*/
-    -webkit-border-radius:6px;/*滚动条的圆角宽度*/
-  }
-  .ul_box::-webkit-scrollbar{
-    width:12px;/*滚动条的宽度*/
-    height:80px;/*滚动条的高度*/
-  }
-  .ul_box::-webkit-scrollbar-thumb:vertical{/*垂直滚动条的样式*/
-    background-color:#999;
-    -webkit-border-radius:4px;
-    outline:2px solid #fff;
-    outline-offset:-2px;
-  }
+  /*.ul_box ul::-webkit-scrollbar-track-piece{*/
+    /*background-color:transparent;!*滚动条的背景颜色*!*/
+    /*-webkit-border-radius:6px;!*滚动条的圆角宽度*!*/
+  /*}*/
+  /*.ul_box ul::-webkit-scrollbar{*/
+    /*width:12px;!*滚动条的宽度*!*/
+    /*height:80px;!*滚动条的高度*!*/
+  /*}*/
+  /*.ul_box ul::-webkit-scrollbar-thumb:vertical{!*垂直滚动条的样式*!*/
+    /*background-color:#999;*/
+    /*-webkit-border-radius:4px;*/
+    /*outline:2px solid #fff;*/
+    /*outline-offset:-2px;*/
+  /*}*/
   /*滚轮条样式*/
 
+  .page_line{
+    margin-top: 20px;
+    text-align: center;
+  }
+  .lastPage,.nextPage{
+    padding: 10px;
+    color: #fff;
+    background: #676972;
+    border-radius: 5px;
+    font-size: 14px;
+    cursor: pointer;
+  }
+  .page_line span:not(:first-of-type){
+    margin-left: 20px;
+    font-size: 14px;
+  }
+  .page{
+    cursor: pointer;
+    color: #fb7c45;
+    padding: 10px;
+  }
+  .cur_page{
+    color: #fff;
+    background:#fb7c45 ;
+    padding: 10px;
+    border-radius: 5px;
+  }
+  .page:hover{
+    color: #fff;
+    background:#fb7c45 ;
+    padding: 10px;
+    border-radius: 5px;
+  }
+  .hidden{
+    display: none;
+  }
   .num_box{
     float: right;
     width: 271px;
@@ -442,4 +545,12 @@
   }
   /*热门事件列表*/
   /*主体部分*/
+</style>
+<style>
+  .event_info a:nth-of-type(even) li{
+    background:#F5F5F5;
+  }
+  .event_info a:nth-of-type(odd) li{
+    background:#fff;
+  }
 </style>

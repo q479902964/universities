@@ -1174,11 +1174,9 @@
   }
   .weibo .t2{
     width: 943px;
-    height: 70px;
     display: inline-block;
     margin-left: 10px;
     margin-top: 5px;
-    overflow: hidden;
     margin-bottom: 53px;
   }
   .weibo .news_content{
